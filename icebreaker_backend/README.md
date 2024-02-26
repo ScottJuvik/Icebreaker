@@ -1,15 +1,19 @@
-### Build
+# Spring Boot Backend
 
-The project is run on **maven version 4.0.0**. 
-If you are in the root folder **IceBreaker_Backend** you need to move into the mixmaven folder. Do this with the following command:
+### Getting Started
 
-```cmd
-cd icebreaker
+Ensure you have java and maven installed before you proceed.
+
+**IceBreaker_Backend** you need to move into the icebreaker_backend folder. Do this with the following command:
+
+
+```
+cd icebreaker_backend
+
+mvn install -DskipTests
+mvn compile
+
+mvn spring-boot:run
 ```
 
-To build you need to run:
-
-```cmd
-mvn clean install -DskipTests
-```
-
+Now the server is running, you can now open a new terminal and follow the instructions in the frontend [README](/IceBreaker/icebreaker_frontend/README.md).
