@@ -1,0 +1,14 @@
+# ignore maven build folder
+**/target/
+
+# pom-derived eclipse jdt files
+.project
+.classpath
+org.eclipse.*.prefs
+
+# devcontainer output
+nohup.out
+
+# other 
+**/.DS_Store
+**/.idea

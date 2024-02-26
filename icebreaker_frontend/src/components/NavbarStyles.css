@@ -1,0 +1,51 @@
+.navbar{
+    background: rgb(1, 31, 75);
+    background: linear-gradient(343deg, rgba(1, 31, 75, 1) 0%, rgba(3, 57, 108, 1) 44%, rgba(0, 91, 150, 1) 100%);
+    padding: 20px 40px 40px 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar_container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+h1{
+    font-style: bold;
+    font-size: 50px;
+    font-family: 'Gravitas One';
+    color: #FDFDFD;
+    margin: 10px;
+}
+
+button{
+    background: #ffdcdc00 ;
+    border: none;
+    color: #FDFDFD;
+    
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-family: 'Gudea';
+    font-style: bold;
+
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+button:hover{
+    color: #cbdced;
+}
