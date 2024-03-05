@@ -1,12 +1,12 @@
 export type User = {
   id: number
   name: string
-  userName:string
+  userName: string
   password: string
 }
 
 export type Activity = {
-  id: number
+  id: string
   title: string
   description: string
   creator: User
@@ -15,6 +15,6 @@ export type Activity = {
 }
 
 export type Category = {
-    id: number
-    name: string
+  id: number
+  name: string
 }
