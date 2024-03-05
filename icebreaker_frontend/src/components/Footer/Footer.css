@@ -1,0 +1,19 @@
+/* Footer.css */
+.footer {
+    background: linear-gradient(343deg, rgb(16, 4, 248) 0%, rgb(50, 14, 233) 44%, rgb(13, 5, 249) 100%);
+    color: #FDFDFD;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    /* Fester footeren til bunnen av skjermen */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* Sørger for at footeren strekker seg over hele bredden */
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+    /* Skygge som viser at footeren er over innholdet */
+    z-index: 100;
+    /* Sørger for at footeren ligger over annet innhold */
+}
+
+/* Om du har ekstra elementer som knapper eller lenker, kan disse stiles her */
