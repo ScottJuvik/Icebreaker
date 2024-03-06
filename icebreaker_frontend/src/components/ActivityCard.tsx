@@ -4,6 +4,9 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
+import RatingStjerner from "./Rating/Rating";
+
+
 function ActivityCard(params: Activity) {
   const [styleClass, setClass] = useState('activity');
   const [expandMode, toggleExpand] = useState(false);
@@ -11,11 +14,14 @@ function ActivityCard(params: Activity) {
   const [favorites, setFavorites] = useState<String[]>([]);
   const [value, setValue] = useState<boolean>(false);
 
+
+
   const navigate = useNavigate()
+
 
   const retrieveFavorites = async () => {
     const userId = sessionStorage.getItem("user_id");
-    if (userId == "") {
+    if (userId === "") {
       return;
     }
     const docRef = doc(db, "users", userId ? userId : "");
@@ -58,7 +64,7 @@ function ActivityCard(params: Activity) {
     if (favorites.includes(params.id)) {
       setValue(true);
     }
-  }, [favorites])
+  }, [favorites, params.id])
 
   const handleButtonClick = () => {
     toggleExpand(!expandMode);
@@ -80,7 +86,9 @@ function ActivityCard(params: Activity) {
         <h3>{params.title}</h3>
         <p id="user_text">Opprettet av: {params.creator.name}</p>
         {expandMode && <p>Beskrivelse: {params.description}</p>}
-        <p id="rating_text">Rating: {params.averageRating}</p>
+        {/*<p id="rating_text">Rating: {params.averageRating}</p>*/}
+        <RatingStjerner rating={params.averageRating} maxRating={5} />
+
       </div>
       {isLoggedIn &&
         <div className="activity_actions" >
