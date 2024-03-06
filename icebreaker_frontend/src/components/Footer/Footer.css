@@ -1,0 +1,12 @@
+.footer {
+    background: rgb(5, 5, 37);
+    background: linear-gradient(343deg, rgb(4, 4, 44) 0%, rgb(10, 10, 90) 44%, rgb(5, 5, 37) 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}

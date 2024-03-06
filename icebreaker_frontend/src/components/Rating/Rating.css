@@ -1,0 +1,19 @@
+.rating-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.star {
+  color: #ffdd00;
+  /* Gul farge for fylte stjerner */
+  margin: 0 2px;
+  /* Liten avstand mellom stjernene */
+  font-size: 1.5em;
+  /* Større stjerner */
+}
+
+.empty {
+  color: #ccc;
+  /* Grå farge for tomme stjerner */
+}
