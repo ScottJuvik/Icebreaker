@@ -7,6 +7,7 @@ import { Activity } from "../types/types";
 import { getActivities } from "../api/ActivitiesAPI";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import FormButton from "../components/FormButton/FormButton";
 
 const Home = () => {
   const [search, setSearch] = useState(""); // State variable for search
@@ -52,6 +53,7 @@ const Home = () => {
         <h2>Activities</h2>
         <SearchBar onSearch={onSearch} />
         <Activities activities={filteredActivities} />
+        <FormButton text="lagre"></FormButton>
       </div>
     </>
   );
