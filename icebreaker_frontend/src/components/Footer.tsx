@@ -1,5 +1,5 @@
 import React from "react";
-import "./Footer.css"; // Endre til riktig sti for din footer CSS
+import "../style/Footer.css";
 
 const Footer = () => {
   return (

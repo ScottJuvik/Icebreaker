@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Router from "./Routers/Router";
 import "./App.css";
-import Footer from './components/Footer/Footer';
+import Footer from "./components/Footer";
 
 
 function App() {
   return (
     <div>
       <Router />
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }
