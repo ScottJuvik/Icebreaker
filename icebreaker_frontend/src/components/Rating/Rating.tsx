@@ -1,4 +1,4 @@
-import "./Rating.css"
+import './Rating.css';
 
 interface RatingStjernerProps {
   rating: number;
@@ -6,22 +6,26 @@ interface RatingStjernerProps {
 }
 
 const RatingStjerner: React.FC<RatingStjernerProps> = ({ rating, maxRating }) => {
-  // Lager en array med størrelse lik maxRating og fyller den med verdier fra 1 opp til maxRating
-  const starIndices = Array.from({ length: maxRating }, (_, i) => i + 1);
+  const getStarType = (index: number) => {
+    if (index <= rating) {
+      return <span key={index} className="starFilled">★</span>; // Fylt stjerne
+    } else if (index - 0.5 <= rating) {
+      return <span key={index} className="starHalfFilled"></span>; // Halvfylt stjerne (bruk det symbolet som best representerer en halv stjerne for deg)
+    } else {
+      return <span key={index} className="starEmpty">☆</span>; // Tom stjerne
+    }
+  };
 
   return (
     <div className="rating-container">
-      {starIndices.map(index => (
-        <span key={index} className={`star ${index <= rating ? 'filled' : 'empty'}`}>
-          {index <= rating ? '★' : '☆'}
-        </span>
+      {Array.from({ length: maxRating }, (_, i) => i + 1).map(index => (
+        getStarType(index)
       ))}
     </div>
   );
 };
 
 export default RatingStjerner;
-
 
 
 
