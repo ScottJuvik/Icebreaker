@@ -3,7 +3,6 @@ import { Activity } from "../types/types";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-
 import RatingStjerner from "./Rating/Rating";
 
 
@@ -13,7 +12,6 @@ function ActivityCard(params: Activity) {
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<String[]>([]);
   const [value, setValue] = useState<boolean>(false);
-
 
 
   const navigate = useNavigate()
@@ -80,13 +78,18 @@ function ActivityCard(params: Activity) {
     setValue(!value)
   }
 
+  const [showRatingModal, setShowRatingModal] = useState(false);
+
+  const handleRateClick = () => {
+    setShowRatingModal(true);
+  };
+
   return (
     <div className={styleClass} >
       <div className="activity_element" onClick={handleButtonClick}>
         <h3>{params.title}</h3>
         <p id="user_text">Opprettet av: {params.creator.name}</p>
         {expandMode && <p>Beskrivelse: {params.description}</p>}
-        {/*<p id="rating_text">Rating: {params.averageRating}</p>*/}
         <RatingStjerner rating={params.averageRating} maxRating={5} />
 
       </div>
@@ -97,6 +100,10 @@ function ActivityCard(params: Activity) {
           <input checked={value} onChange={handleChange} type="checkbox" className="activity_checkbox" />
         </div>
       }
+
+      <button id="rate_button" onClick={handleRateClick}> {/*legg til   {isLoggedIn && ( senere*/}
+        Rate
+      </button>
     </div>
   );
 }

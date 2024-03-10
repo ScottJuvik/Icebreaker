@@ -7,7 +7,6 @@ function App() {
   return (
     <div>
       <Router />
-      <Rating rating={2} maxRating={5} />
     </div>
 
   );
