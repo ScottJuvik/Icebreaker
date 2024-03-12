@@ -1,47 +1,45 @@
-import { addDoc, collection, doc, Firestore, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import Navbar from "../../components/Navbar/Navbar";
 import { auth, db } from "../../firebase/firebaseConfig";
-import "./CreateActivity.css";
+import "./CreateReview.css";
 import { serverTimestamp } from "firebase/firestore";
 import FormComponent from "../../components/FormComponent/FormComponent";
+import { useParams } from "react-router-dom";
 
-const CreateActivity = () => {
-
-  async function postActivity(formData: Record<string, string>) {
-    console.log(formData["name"]);
+const CreateReview = () => {
+  //TODO: Add support for numerical rating.
+  const { activityId } = useParams();
+  async function postReview(formData: Record<string, string>) {
     if (!auth.currentUser) {
       throw new Error("Login required");
     }
     const activitiesRef = collection(db, "activities")
-    const activity = await addDoc(activitiesRef, {
+    const review = await addDoc(activitiesRef, {
       title: formData['title'],
       description: formData['description'],
-      category: formData['category'],
       creator: { id: auth.currentUser?.uid, name: auth.currentUser?.displayName },
       dateCreated: serverTimestamp(),
-      averageRating: 0,
-
+      activityID: activityId,
     }
     )
-    console.log("activity written with id: ", activity.id)
+    console.log("Review written with id: ", review.id)
   }
 
   const fields = [
     { category: "input", name: "title", label: "title", type: "text", required: true },
     { category: "textarea", name: "description", label: "description", type: "text", required: true },
-    { category: "input", name: "category", label: "category", type: "text", required: true },
   ]
   return (<>
     <Navbar />
     <div className="content-container">
-      <h2 className="header">Create Activity:</h2>
-      <FormComponent fields={fields} onSubmit={postActivity} />
+      <h2 className="header">Create Review:</h2>
+      <FormComponent fields={fields} onSubmit={postReview} />
     </div>
   </>)
 }
 
+export default CreateReview;
 
 
 
 
-export default CreateActivity;
