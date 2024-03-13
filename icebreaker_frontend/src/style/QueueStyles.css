@@ -11,6 +11,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
     transition: all 0.1s ease;
     height: 8vh;
+    width: 100%;
 }
 
 .queue:hover {
@@ -27,4 +28,42 @@
     transition: all 0.1s ease;
     height: 8vh;
     width: 100%;
+}
+
+.queue-div {
+    width: 100%;
+    display: flex;
+    flex-direction: horizontal;
+    align-items:stretch;
+    transition: all 0.1s ease;
+}
+
+
+.play-button {
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 10px;
+    padding: 0;
+    height: 100%;
+}
+
+.play-button:hover {
+    color: #000000;
+}
+
+.play-icon{
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    padding: 0;
+    height: 60%;
+}
+
+.close-icon {
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    padding: 0;
+    height: 30px;
 }

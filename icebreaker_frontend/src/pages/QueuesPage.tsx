@@ -9,6 +9,7 @@ import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { Queue } from "../types/types";
 import "../style/QueueStyles.css";
+import CloseIcon from "../components/icons/CloseIcon";
 
 const QueuesPage = () => {
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
@@ -94,6 +95,7 @@ const QueuesPage = () => {
     },
   ]);
 
+  //get svg from src/icons/close.svg
   return (
     <>
       <Navbar />
@@ -104,7 +106,12 @@ const QueuesPage = () => {
           <li className="activities">
             <ul>
               {queues.map((queue: Queue) => (
-                <QueueCard key={queue.id} {...queue} />
+                <div className="queue-div">
+                  <QueueCard key={queue.id} {...queue} />
+                  <button>
+                    <CloseIcon />
+                  </button>
+                </div>
               ))}
             </ul>
           </li>

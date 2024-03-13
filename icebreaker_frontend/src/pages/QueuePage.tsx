@@ -7,6 +7,7 @@ import { Activity } from "../types/types";
 import { getActivities } from "../api/ActivitiesAPI";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import "../style/QueueStyles.css";
 
 const QueuePage = () => {
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
