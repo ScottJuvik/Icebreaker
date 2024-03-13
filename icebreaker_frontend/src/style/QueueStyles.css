@@ -1,0 +1,30 @@
+.queue {
+    background: rgb(100, 151, 177);
+    background: linear-gradient(343deg, rgba(100, 151, 177, 1) 0%, rgba(179, 205, 224, 1) 39%);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: vertical;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    padding: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    transition: all 0.1s ease;
+    height: 8vh;
+}
+
+.queue:hover {
+    scale: 1.005;
+}
+
+.queue-element {
+    display: flex;
+    flex-direction: horizontal;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    padding: 5px;
+    transition: all 0.1s ease;
+    height: 8vh;
+    width: 100%;
+}

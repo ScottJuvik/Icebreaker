@@ -18,3 +18,9 @@ export type Category = {
   id: number
   name: string
 }
+
+export type Queue = {
+  id: string
+  title: string
+  activities: Activity[]
+}

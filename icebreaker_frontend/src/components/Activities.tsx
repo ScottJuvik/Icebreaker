@@ -8,12 +8,11 @@ interface ActivitiesProps {
 }
 
 function Activities({ activities }: ActivitiesProps) {
-
   return (
     <li className="activities">
       <ul>
         {activities.map((activity: Activity) => (
-          <ActivityCard key={activity.title} {...activity} /> //TODO: Change this so It uses a more identifiable key
+          <ActivityCard key={activity.id} {...activity} />
         ))}
       </ul>
     </li>
