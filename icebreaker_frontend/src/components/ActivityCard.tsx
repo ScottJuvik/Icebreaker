@@ -4,6 +4,9 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import RatingStjerner from "./Rating/Rating";
+import "./Rating/RatingModal.css";
+import { FaStar } from 'react-icons/fa'
+
 
 
 function ActivityCard(params: Activity) {
@@ -15,6 +18,12 @@ function ActivityCard(params: Activity) {
 
 
   const navigate = useNavigate()
+
+  // to nye tilstandsvariabler – en for å vise/skjule modalen og en for å holde styr på den valgte ratingen
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
+  const [showRatingModal, setShowRatingModal] = useState(false);
+
 
 
   const retrieveFavorites = async () => {
@@ -78,11 +87,32 @@ function ActivityCard(params: Activity) {
     setValue(!value)
   }
 
-  const [showRatingModal, setShowRatingModal] = useState(false);
 
+  {/* Gjør at man må logge inn for å klikke på rate*/ }
   const handleRateClick = () => {
-    setShowRatingModal(true);
+    if (!isLoggedIn) {
+      setShowRatingModal(true);
+    } else {
+      alert('You need to log in to give a rating');
+    }
   };
+
+  const handleSaveRating = async () => {
+    // Anta at du har en funksjon for å lagre rating til din database
+    // og den funksjonen returnerer en promise
+    try {
+      await saveRatingToDatabase(params.id, rating);
+      setShowRatingModal(false);
+      alert('Rating saved successfully');
+      // Oppdater state for å reflektere den nye ratingen i UI, om nødvendig
+    } catch (error) {
+      alert('Failed to save rating');
+      console.error(error);
+    }
+  };
+
+
+
 
   return (
     <div className={styleClass} >
@@ -101,9 +131,45 @@ function ActivityCard(params: Activity) {
         </div>
       }
 
-      <button id="rate_button" onClick={handleRateClick}> {/*legg til   {isLoggedIn && ( senere*/}
+      <button className="rate_button" onClick={handleRateClick}> { }
         Rate
       </button>
+
+      {/* rating av leker */}
+
+      {showRatingModal && (
+        <div className="rating_modal">
+          <div className="modal_content">
+            <span className="close" onClick={() => setShowRatingModal(false)}>
+              &times;
+            </span>
+            <div>
+              {[...Array(5)].map((_, index) => {
+                const ratingValue = index + 1;
+                return (
+                  <label key={index}>
+                    <input
+                      type="radio"
+                      name="rating"
+                      value={ratingValue}
+                      onClick={() => setRating(ratingValue)}
+                    />
+                    <FaStar
+                      className="star"
+                      size={25}
+                      color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                      onMouseEnter={() => setHover(ratingValue)}
+                      onMouseLeave={() => setHover(0)}
+                    />
+                  </label>
+                );
+              })}
+            </div>
+            <button onClick={handleSaveRating}>Save Rating</button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
