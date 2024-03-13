@@ -19,7 +19,7 @@ function ActivityCard(params: Activity) {
 
   const navigate = useNavigate()
 
-  // to nye tilstandsvariabler – en for å vise/skjule modalen og en for å holde styr på den valgte ratingen
+  // tilstandsvariabler – en for å vise/skjule modalen og en for å holde styr på den valgte ratingen, og hover
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [showRatingModal, setShowRatingModal] = useState(false);
@@ -90,28 +90,33 @@ function ActivityCard(params: Activity) {
 
   {/* Gjør at man må logge inn for å klikke på rate*/ }
   const handleRateClick = () => {
-    if (!isLoggedIn) {
+    if (!isLoggedIn) { //har bare skrevet ! foran for å slippe å logge inn hver gang midlertidig
       setShowRatingModal(true);
     } else {
       alert('You need to log in to give a rating');
     }
   };
 
+  // TODO: Implementer databaselagring 
+
   const handleSaveRating = async () => {
-    // Anta at du har en funksjon for å lagre rating til din database
-    // og den funksjonen returnerer en promise
-    try {
-      await saveRatingToDatabase(params.id, rating);
-      setShowRatingModal(false);
-      alert('Rating saved successfully');
-      // Oppdater state for å reflektere den nye ratingen i UI, om nødvendig
-    } catch (error) {
-      alert('Failed to save rating');
-      console.error(error);
-    }
+    setShowRatingModal(false);
+
+    alert("Failed to save rating. Feature not implemented yet.");
   };
 
 
+  {/* Lagrer rating til databasen 
+  const handleSaveRating = async () => {
+    try {
+      await saveRatingToDatabase(params.id, rating);
+      setShowRatingModal(false); // Lukker modalen
+      alert('Rating saved successfully!');
+    } catch (error) {
+      alert('Failed to save rating: ' + error.message);
+      console.error('Failed to save rating', error);
+    }
+  }; */}
 
 
   return (
@@ -135,6 +140,7 @@ function ActivityCard(params: Activity) {
         Rate
       </button>
 
+
       {/* rating av leker */}
 
       {showRatingModal && (
@@ -156,7 +162,7 @@ function ActivityCard(params: Activity) {
                     />
                     <FaStar
                       className="star"
-                      size={25}
+                      size={20}
                       color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
                       onMouseEnter={() => setHover(ratingValue)}
                       onMouseLeave={() => setHover(0)}
