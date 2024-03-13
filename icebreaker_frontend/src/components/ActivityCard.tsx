@@ -28,7 +28,7 @@ function ActivityCard(params: Activity) {
 
   const retrieveFavorites = async () => {
     const userId = sessionStorage.getItem("user_id");
-    if (userId === "") {
+    if (userId == "") {
       return;
     }
     const docRef = doc(db, "users", userId ? userId : "");
