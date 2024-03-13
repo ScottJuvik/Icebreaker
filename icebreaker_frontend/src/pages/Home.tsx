@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import SearchBar from "../components/SearchBar";
 import Activities from "../components/Activities";
+import AddButton from "../components/AddButton/AddButton";
 import { Activity } from "../types/types";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
@@ -52,6 +53,7 @@ const Home = () => {
         <SearchBar onSearch={onSearch} />
         <Activities activities={filteredActivities} />
       </div>
+      <AddButton path="/create_activity" />
     </>
   );
 };

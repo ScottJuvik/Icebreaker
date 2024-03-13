@@ -13,8 +13,8 @@ const CreateReview = () => {
     if (!auth.currentUser) {
       throw new Error("Login required");
     }
-    const activitiesRef = collection(db, "activities")
-    const review = await addDoc(activitiesRef, {
+    const reviewRef = collection(db, "review")
+    const review = await addDoc(reviewRef, {
       title: formData['title'],
       description: formData['description'],
       creator: { id: auth.currentUser?.uid, name: auth.currentUser?.displayName },
