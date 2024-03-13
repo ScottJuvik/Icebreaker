@@ -1,60 +1,61 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from "../components/Navbar";
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/Navbar/Navbar";
 import SearchBar from "../components/SearchBar";
 import Activities from "../components/Activities";
 import ActivityCard from "../components/ActivityCard";
 import { Activity } from "../types/types";
-import { getActivities } from '../api/ActivitiesAPI'
-import { db } from '../firebase/firebaseConfig';
-import { collection, getDocs } from 'firebase/firestore';
+import { getActivities } from "../api/ActivitiesAPI";
+import { db } from "../firebase/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
 const Home = () => {
-    const [search, setSearch] = useState(""); // State variable for search
-    const [activities, setActivities] = useState<Activity[]>([]); // State variable for activities
+  const [search, setSearch] = useState(""); // State variable for search
+  const [activities, setActivities] = useState<Activity[]>([]); // State variable for activities
 
-    const getActivities = async () => {
-        const querySnapshot = await getDocs(collection(db, "activities"));
-        const activityList: Activity[] = [];
-        console.log(querySnapshot.forEach((doc) => {
-            const data: Activity = {
-                ...doc.data() as Activity,
-                id: doc.id
-            }
-            activityList.push(data);
-        }));
-        setActivities(activityList);
-        console.log(activityList)
-    }
+  const getActivities = async () => {
+    const querySnapshot = await getDocs(collection(db, "activities"));
+    const activityList: Activity[] = [];
 
+    querySnapshot.forEach((doc) => {
+      const data: Activity = {
+        ...(doc.data() as Activity),
+        id: doc.id,
+      };
+      activityList.push(data);
+    })
 
-    useEffect(() => {
-        // Fetch activities when the component mounts
-        // getActivities().then((activities) => setActivities(activities));
+    setActivities(activityList);
+    console.log(activityList);
+  };
 
-        getActivities();
-    }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
+  useEffect(() => {
+    // Fetch activities when the component mounts
+    // getActivities().then((activities) => setActivities(activities));
 
-    // Update the search state when search term changes
-    const onSearch = (searchTerm: string) => {
-        setSearch(searchTerm);
-    };
+    getActivities();
+  }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
 
-    // Filter activities based on the search term
-    const filteredActivities = activities.filter(activity =>
-        activity.title.toLowerCase().includes(search.toLowerCase())
-    );
+  // Update the search state when search term changes
+  const onSearch = (searchTerm: string) => {
+    setSearch(searchTerm);
+    console.log(searchTerm);
+  };
 
-    return (
-        <>
-            <Navbar />
-            <div className="content_container">
-                <h2>Activities</h2>
-                <SearchBar onSearch={onSearch} />
-                <Activities activities={filteredActivities} />
-            </div>
+  // Filter activities based on the search term
+  const filteredActivities = activities.filter((activity) =>
+    activity.title && activity.title.toLowerCase().includes(search.toLowerCase())
+  );
 
-        </>
-    )
-}
+  return (
+    <>
+      <Navbar />
+      <div className="content_container">
+        <h2>Activities</h2>
+        <SearchBar onSearch={onSearch} />
+        <Activities activities={filteredActivities} />
+      </div>
+    </>
+  );
+};
 
-export default Home
+export default Home;
