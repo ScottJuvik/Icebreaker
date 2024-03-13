@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   GoogleAuthProvider,
-  getRedirectResult,
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db } from "../firebase/firebaseConfig";
@@ -57,7 +56,7 @@ const Login = () => {
       console.log("This is the token: " + sessionStorage.getItem("user_id"));
       navigate("/");
     }
-  }, [token]);
+  }, [navigate, token]);
 
   return (
     <>

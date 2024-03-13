@@ -15,10 +15,10 @@ function ActivityCard(params: Activity) {
 
   const retrieveFavorites = async () => {
     const userId = sessionStorage.getItem("user_id");
-    if (userId == "") {
+    if (!userId) {
       return;
     }
-    const docRef = doc(db, "users", userId ? userId : "");
+    const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -32,7 +32,10 @@ function ActivityCard(params: Activity) {
   const updateFavorites = async () => {
     retrieveFavorites();
     const userId = sessionStorage.getItem("user_id");
-    const userRef = doc(db, "users", userId ? userId : "");
+    if (!userId) {
+      return;
+    }
+    const userRef = doc(db, "users", userId);
 
     await updateDoc(userRef, {
       favorites: [params.id, ...favorites]
@@ -42,7 +45,10 @@ function ActivityCard(params: Activity) {
   const deleteFavorites = async () => {
     retrieveFavorites();
     const userId = sessionStorage.getItem("user_id");
-    const userRef = doc(db, "users", userId ? userId : "");
+    if (!userId) {
+      return;
+    }
+    const userRef = doc(db, "users", userId);
     await updateDoc(userRef, {
       favorites: favorites.filter((activityId) => activityId !== params.id)
     });
