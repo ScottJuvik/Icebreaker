@@ -3,7 +3,7 @@ import { Activity } from "../types/types";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-
+import "../style/ActivitiesStyles.css"
 function ActivityCard(params: Activity) {
   const [styleClass, setClass] = useState('activity');
   const [expandMode, toggleExpand] = useState(false);
