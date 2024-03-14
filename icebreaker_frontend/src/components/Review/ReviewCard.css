@@ -24,12 +24,9 @@
 }
 
 .report-btn {
-  color: white;
-  background: linear-gradient(343deg, rgba(245, 100, 100, 1) 0%, rgba(255, 50, 55, 1) 39%);
-  width: 1rem;
-  height: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-  justify-self: right;
-  padding: 10px 10px 10px 10px;
+  border-radius: 15px;
+}
+
+.report-btn:hover {
+  color: #d10a0a;
 }

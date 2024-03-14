@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Activities from "../../components/Activities";
 import ExpandedActivity from "../../components/ExpandedActivity/ExpandedActivity";
 import Navbar from "../../components/Navbar/Navbar";
@@ -8,11 +8,13 @@ import { getDocs, collection } from 'firebase/firestore';
 import { db } from "../../firebase/firebaseConfig";
 import { Activity, Review } from "../../types/types";
 import "./ActivityView.css";
+import FabButton from "../../components/FabButton/FabButton";
 
 const ActivityView = () => {
   const { activityId } = useParams();
   const [activity, setActivity] = useState<Activity | null>(null); // Use DocumentData type
   const [reviews, setReviews] = useState<Review[]>([]);
+  const navigate = useNavigate();
 
   const getActivity = async () => {
     try {
@@ -49,6 +51,10 @@ const ActivityView = () => {
     getReviews(activityId as string);
   }, [activityId]);
 
+  const handleReviewButton = () => {
+    navigate("/create_review/" + activityId);
+  }
+
   return (
     <>
       <Navbar />
@@ -61,6 +67,7 @@ const ActivityView = () => {
 
           }</div>
       </div>
+      <FabButton handleClick={handleReviewButton} icon="review" />
     </>
   );
 };

@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import SearchBar from "../components/SearchBar";
 import Activities from "../components/Activities";
-import AddButton from "../components/AddButton/AddButton";
 import { Activity } from "../types/types";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import FabButton from "../components/FabButton/FabButton";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [search, setSearch] = useState(""); // State variable for search
   const [activities, setActivities] = useState<Activity[]>([]); // State variable for activities
-
+  const navigate = useNavigate();
   const getActivities = async () => {
     const querySnapshot = await getDocs(collection(db, "activities"));
     const activityList: Activity[] = [];
@@ -45,6 +46,10 @@ const Home = () => {
     activity.title && activity.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const create_activity = () => {
+    navigate("/create_activity")
+  }
+
   return (
     <>
       <Navbar />
@@ -53,7 +58,7 @@ const Home = () => {
         <SearchBar onSearch={onSearch} />
         <Activities activities={filteredActivities} />
       </div>
-      <AddButton path="/create_activity" />
+      <FabButton handleClick={create_activity} icon="add" />
     </>
   );
 };

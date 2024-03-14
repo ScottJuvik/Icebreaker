@@ -2,9 +2,10 @@ import { Activity } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./ExpandedActivity.css";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
 function ExpandedActivity(params: Activity) {
-  //TODO: make review button a floating component
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<String[]>([]);
   const [value, setValue] = useState<boolean>(false);
@@ -15,11 +16,57 @@ function ExpandedActivity(params: Activity) {
     setLoggedIn(sessionStorage.getItem("user_id") !== "" && sessionStorage.getItem("user_id") !== null)
   }, [navigate])
 
+  const retrieveFavorites = async () => {
+    const userId = sessionStorage.getItem("user_id");
+    if (!userId) {
+      return;
+    }
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
 
-  const handleReviewButton = () => {
-    //TODO: params.id is undefined for some reason.
-    navigate("/create_review/" + params.id);
+    if (docSnap.exists()) {
+      setFavorites(docSnap.data().favorites);
+    }
+    else {
+      console.log("No such document!")
+    }
   }
+
+  const updateFavorites = async () => {
+    retrieveFavorites();
+    const userId = sessionStorage.getItem("user_id");
+    if (!userId) {
+      return;
+    }
+    const userRef = doc(db, "users", userId);
+
+    await updateDoc(userRef, {
+      favorites: [params.id, ...favorites]
+    });
+  }
+
+  const deleteFavorites = async () => {
+    retrieveFavorites();
+    const userId = sessionStorage.getItem("user_id");
+    if (!userId) {
+      return;
+    }
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, {
+      favorites: favorites.filter((activityId) => activityId !== params.id)
+    });
+  }
+
+  const handleFavorite = () => {
+    if (!value) {
+      updateFavorites();
+    } else {
+      deleteFavorites();
+    }
+    setValue(!value)
+  }
+
+
   return (
     <div className="expanded-activity" >
       <div className="activity_element">
@@ -31,9 +78,8 @@ function ExpandedActivity(params: Activity) {
       </div>
       {isLoggedIn &&
         <div className="activity-actions" >
-          <button onClick={handleReviewButton}>Vurder</button>
           <button>Rapporter</button>
-          <input checked={value} type="checkbox" className="activity_checkbox" />
+          <input checked={value} onClick={handleFavorite} type="checkbox" className="activity_checkbox" />
         </div>
       }
     </div>
