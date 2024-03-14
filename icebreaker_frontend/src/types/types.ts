@@ -1,3 +1,5 @@
+import { Timestamp } from "@firebase/firestore"
+
 export type User = {
   id: number
   name: string
@@ -17,4 +19,15 @@ export type Activity = {
 export type Category = {
   id: number
   name: string
+}
+
+export type Review = {
+  activityId: string;
+  creator: {
+    id: string;
+    name: string
+  }
+  dateCreated: Timestamp;
+  description: string;
+  title: string;
 }

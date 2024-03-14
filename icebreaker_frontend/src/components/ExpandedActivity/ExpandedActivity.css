@@ -1,0 +1,21 @@
+.expanded-activity {
+  background: rgb(100, 151, 177);
+  background: linear-gradient(343deg, rgba(100, 151, 177, 1) 0%, rgba(179, 205, 224, 1) 39%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  transition: 75ms;
+  height: 40vh;
+  width: 65vh;
+}
+
+
+.activity-actions {
+  display: flex;
+  flex-direction: row;
+}
