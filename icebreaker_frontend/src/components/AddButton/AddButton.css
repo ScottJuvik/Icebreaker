@@ -1,0 +1,9 @@
+.fab-container {
+  position: fixed;
+  bottom: 5rem;
+  /* Adjust as per your requirement */
+  right: 5rem;
+  /* Adjust as per your requirement */
+  z-index: 1000;
+  /* Ensure it appears on top of other elements */
+}
