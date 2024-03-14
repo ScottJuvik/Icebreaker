@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react";
-import { Activity } from "../types/types";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { Activity } from "../../types/types";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import "./ExpandedActivity.css";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
-function ActivityCard(params: Activity) {
-  const [styleClass, setClass] = useState('activity');
-  const [expandMode, toggleExpand] = useState(false);
+function ExpandedActivity(params: Activity) {
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<String[]>([]);
   const [value, setValue] = useState<boolean>(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoggedIn(sessionStorage.getItem("user_id") !== "" && sessionStorage.getItem("user_id") !== null)
+  }, [navigate])
 
   const retrieveFavorites = async () => {
     const userId = sessionStorage.getItem("user_id");
@@ -54,23 +57,7 @@ function ActivityCard(params: Activity) {
     });
   }
 
-
-  useEffect(() => {
-    setLoggedIn(sessionStorage.getItem("user_id") !== "" && sessionStorage.getItem("user_id") !== null)
-    retrieveFavorites();
-  }, [navigate])
-
-  useEffect(() => {
-    if (favorites.includes(params.id)) {
-      setValue(true);
-    }
-  }, [favorites])
-
-  const handleButtonClick = () => {
-    navigate("/" + params.id);
-  }
-
-  const handleChange = () => {
+  const handleFavorite = () => {
     if (!value) {
       updateFavorites();
     } else {
@@ -79,26 +66,24 @@ function ActivityCard(params: Activity) {
     setValue(!value)
   }
 
-  const handleReviewButton = () => {
-    navigate("/create_review/" + params.id);
-  }
+
   return (
-    <div className={styleClass} >
-      <div className="activity_element" onClick={handleButtonClick}>
-        <h3>{params.title}</h3>
+    <div className="expanded-activity" >
+      <div className="activity_element">
+        <h1>{params.title}</h1>
         <p id="user_text">Opprettet av: {params.creator.name}</p>
-        {expandMode && <p>Beskrivelse: {params.description}</p>}
+        <p>Beskrivelse: {params.description}</p>
         <p id="rating_text">Rating: {params.averageRating}</p>
+        <p>{params.id}</p>
       </div>
       {isLoggedIn &&
-        <div className="activity_actions" >
-          <button onClick={handleReviewButton}>Vurder</button>
+        <div className="activity-actions" >
           <button>Rapporter</button>
-          <input checked={value} onChange={handleChange} type="checkbox" className="activity_checkbox" />
+          <input checked={value} onClick={handleFavorite} type="checkbox" className="activity_checkbox" />
         </div>
       }
     </div>
   );
 }
 
-export default ActivityCard;
+export default ExpandedActivity;
