@@ -1,70 +1,54 @@
-// Home.tsx
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 import SearchBar from "../components/SearchBar";
 import Activities from "../components/Activities";
-import { Activity, Category } from "../types/types";
+import { Activity } from "../types/types";
 import { db } from "../firebase/firebaseConfig";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import useFilteredActivities from "../hooks/useFilterActivities";
+import { collection, getDocs } from "firebase/firestore";
+import FabButton from "../components/FabButton/FabButton";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [search, setSearch] = useState(""); // State variable for search
   const [activities, setActivities] = useState<Activity[]>([]); // State variable for activities
-  const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const getActivities = async () => {
+    const querySnapshot = await getDocs(collection(db, "activities"));
+    const activityList: Activity[] = [];
 
-  const { filteredActivities, toggleSortOrder, clearSortByRating } =
-    useFilteredActivities({
-      initialActivities: activities,
-      search,
-      selectedCategory,
-    });
+    querySnapshot.forEach((doc) => {
+      const data: Activity = {
+        ...(doc.data() as Activity),
+        id: doc.id,
+      };
+      activityList.push(data);
+    })
+
+    setActivities(activityList);
+    console.log(activityList);
+  };
 
   useEffect(() => {
-    const getActivities = async () => {
-      const querySnapshot = await getDocs(collection(db, "activities"));
-      const activityList: Activity[] = [];
-      querySnapshot.forEach((doc) => {
-        const data: Activity = {
-          ...(doc.data() as Activity),
-          id: doc.id,
-        };
-        activityList.push(data);
-      });
-      setActivities(activityList);
-    };
+    // Fetch activities when the component mounts
+    // getActivities().then((activities) => setActivities(activities));
 
     getActivities();
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
 
-  useEffect(() => {
-    const getValidCategories = async () => {
-      const querySnapshot = await getDoc(
-        doc(db, "category", "valid categories")
-      );
-      if (querySnapshot.exists()) {
-        const categoryData = querySnapshot.data() as Category;
-        setCategories(categoryData.categories);
-      } else {
-        console.log("docs not found");
-      }
-    };
-    getValidCategories();
-  });
-
+  // Update the search state when search term changes
   const onSearch = (searchTerm: string) => {
     setSearch(searchTerm);
-    if (searchTerm === "") {
-      clearSortByRating(); // If the search is cleared, reset the sorting
-    }
+    console.log(searchTerm);
   };
 
-  const handleCategoryChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSelectedCategory(event.target.value);
-  };
+  // Filter activities based on the search term
+  const filteredActivities = activities.filter((activity) =>
+    activity.title && activity.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const create_activity = () => {
+    navigate("/create_activity")
+  }
 
   return (
     <>
@@ -72,17 +56,9 @@ const Home = () => {
       <div className="content_container">
         <h2>Activities</h2>
         <SearchBar onSearch={onSearch} />
-        <button onClick={toggleSortOrder}>Toggle Sort by Rating</button>
-        <select value={selectedCategory || ""} onChange={handleCategoryChange}>
-          <option value="">Select a category.</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
         <Activities activities={filteredActivities} />
       </div>
+      <FabButton handleClick={create_activity} icon="add" />
     </>
   );
 };
