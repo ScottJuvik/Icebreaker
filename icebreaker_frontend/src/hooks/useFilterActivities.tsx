@@ -1,22 +1,27 @@
 // useFilteredActivities.tsx
 import React, { useState } from "react";
-import { Activity, Category } from "../types/types";
+import { Activity } from "../types/types";
 
 interface UseFilteredActivitiesProps {
   initialActivities: Activity[];
   search: string;
+  selectedCategory: string | null;
 }
 
 const useFilteredActivities = ({
   initialActivities,
   search,
+  selectedCategory,
 }: UseFilteredActivitiesProps) => {
-  const [isSortedByRating, setIsSortedByRating] = useState(false);
+  const [isSortedByRating, setIsSortedByRating] = useState(true);
   const [sortDescending, setSortDescending] = useState(true);
 
   const filteredActivities = initialActivities
     .filter((activity) =>
       activity.title.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((activity) =>
+      selectedCategory ? activity.category === selectedCategory : true
     )
     .sort((a, b) =>
       isSortedByRating

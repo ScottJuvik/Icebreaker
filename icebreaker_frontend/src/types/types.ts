@@ -11,10 +11,9 @@ export type Activity = {
   description: string
   creator: User
   averageRating: number
-  categories: Category[]
+  category: string
 }
 
 export type Category = {
-  id: number
-  name: string
+  categories: string[]
 }
