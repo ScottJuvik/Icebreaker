@@ -13,11 +13,12 @@ export type Activity = {
   description: string
   creator: User
   averageRating: number
-  category: string
+  categories: Category[]
 }
 
 export type Category = {
-  categories: string[]
+  id: number
+  name: string
 }
 
 export type Review = {
