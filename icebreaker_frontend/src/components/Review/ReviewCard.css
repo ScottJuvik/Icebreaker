@@ -29,4 +29,5 @@
 
 .report-btn:hover {
   color: #d10a0a;
+  cursor: pointer;
 }
