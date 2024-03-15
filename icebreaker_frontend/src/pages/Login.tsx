@@ -19,6 +19,7 @@ const Login = () => {
       name: name,
       email: email,
       favorites: [],
+      type: "user"
     });
     setToken(docRef.id);
   };
