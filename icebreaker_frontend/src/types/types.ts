@@ -17,8 +17,7 @@ export type Activity = {
 }
 
 export type Category = {
-  id: number
-  name: string
+  categories: string[]
 }
 
 export type Review = {
