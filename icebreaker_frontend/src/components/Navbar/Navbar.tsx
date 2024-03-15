@@ -72,9 +72,8 @@ const Navbar = ({ atLoginPage = false }: NavbarProps) => {
               <button>LOGG IN</button>
             </Link>
           )}
-          {(isLoggedIn && isAdmin) && (<Link to={"/admin"}>
-            <button>ADMIN</button>
-          </Link>
+          {(isLoggedIn && isAdmin) && (
+            <p>ADMIN</p>
           )}
           <button onClick={toggleMenu} className="menu-button">
             <span className="menu-line"></span>
