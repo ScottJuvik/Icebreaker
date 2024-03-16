@@ -1,7 +1,7 @@
 import { Timestamp } from "@firebase/firestore"
 
 export type User = {
-  id: number
+  id: string
   name: string
   userName: string
   password: string
@@ -21,6 +21,7 @@ export type Category = {
 }
 
 export type Review = {
+  id: string;
   activityId: string;
   creator: {
     id: string;

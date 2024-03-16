@@ -3,6 +3,7 @@ import "./NavbarStyles.css";
 import { auth, db } from "../../firebase/firebaseConfig";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 interface NavbarProps {
   atLoginPage?: boolean;
@@ -11,7 +12,24 @@ interface NavbarProps {
 const Navbar = ({ atLoginPage = false }: NavbarProps) => {
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [isMenuVisible, setMenuVisible] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const retrieveAdmin = async () => {
+    const userId = sessionStorage.getItem("user_id");
+    if (!userId) {
+      return;
+    }
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setIsAdmin(docSnap.data().type == "admin");
+    }
+    else {
+      console.log("No such document!")
+    }
+  }
 
   useEffect(() => {
     const token_id = sessionStorage.getItem("user_id");
@@ -20,6 +38,7 @@ const Navbar = ({ atLoginPage = false }: NavbarProps) => {
     } else {
       setLoggedIn(false);
     }
+    retrieveAdmin();
   }, [navigate]);
 
   const handleLogOut = () => {
@@ -53,11 +72,13 @@ const Navbar = ({ atLoginPage = false }: NavbarProps) => {
               <button>LOGG IN</button>
             </Link>
           )}
+          {(isLoggedIn && isAdmin) && (
+            <p>ADMIN</p>
+          )}
           <button onClick={toggleMenu} className="menu-button">
             <span className="menu-line"></span>
             <span className="menu-line"></span>
             <span className="menu-line"></span>
-            MENY
           </button>
         </div>
       </div>

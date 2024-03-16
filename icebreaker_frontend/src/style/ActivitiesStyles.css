@@ -21,6 +21,7 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
   transition: all 0.1s ease;
   height: 20vh;
+  cursor: pointer;
 }
 
 .activity_element {
@@ -30,7 +31,7 @@
   justify-content: center;
   margin: 0px;
   padding: 0px 10px;
-  width: 80%;
+  width: 70%;
   padding-top: 12%;
   padding-bottom: 12%;
 }
@@ -56,7 +57,7 @@
   justify-content: center;
   margin: 0px;
   padding: 0px 10px;
-  width: 20%;
+  width: 30%;
 }
 
 img.activity_element {
@@ -71,9 +72,7 @@ img.activity_element {
 }
 
 .activity_checkbox {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
+  size: 25px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -110,4 +109,33 @@ img.activity_element {
   color: #667f93;
   font-size: 70%;
   margin: 0px 0px 10px 0px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+    font-size: 20px;
+  }
+
+  to {
+    transform: rotate(360deg);
+    font-size: 50px;
+  }
+}
+
+.trashbtn {
+  font-size: 35px;
+  color: aliceblue;
+  cursor: pointer;
+  padding-bottom: 3px;
+}
+
+.trashbtn:hover {
+  font-size: 40px;
+  color: #d10a0a;
+  cursor: pointer;
+}
+
+.onclickButtons {
+  flex-direction: row;
 }

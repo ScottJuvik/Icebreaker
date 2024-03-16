@@ -34,9 +34,12 @@ const ActivityView = () => {
       const reviewList: Review[] = [];
       const querySnapshot = await getDocs(collection(db, 'reviews'));
       querySnapshot.forEach(doc => {
-        const a = doc.data() as Review;
-        if (a.activityId === activityId) {
-          reviewList.push(a);
+        const data: Review = {
+          ...(doc.data() as Review),
+          id: doc.id,
+        };
+        if (data.activityId === activityId) {
+          reviewList.push(data);
         }
         setReviews(reviewList);
         console.log(reviewList);
