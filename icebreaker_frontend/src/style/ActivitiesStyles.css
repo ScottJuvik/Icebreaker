@@ -125,10 +125,6 @@ img.activity_element {
 
 .trashbtn {
   font-size: 35px;
-  /* animation-name: spin;
-  animation-duration: 4000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear; */
   color: aliceblue;
   cursor: pointer;
   padding-bottom: 3px;
