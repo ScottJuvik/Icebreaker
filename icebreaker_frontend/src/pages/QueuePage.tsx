@@ -3,41 +3,33 @@ import Navbar from "../components/Navbar/Navbar";
 import SearchBar from "../components/SearchBar";
 import Activities from "../components/Activities";
 import ActivityCard from "../components/ActivityCard";
-import { Activity } from "../types/types";
+import { Activity, Queue } from "../types/types";
 import { getActivities } from "../api/ActivitiesAPI";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import "../style/QueueStyles.css";
+import { useParams } from "react-router-dom";
+import { getQueue } from "../api/QueuesAPI";
 
 const QueuePage = () => {
+  const { queueId } = useParams();
+
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   useEffect(() => {
+    console.log("user_id: ", sessionStorage.getItem("user_id"));
     setLoggedIn(
       sessionStorage.getItem("user_id") !== "" &&
         sessionStorage.getItem("user_id") !== null
     );
   }, []);
 
-  const [activities, setActivities] = useState<Activity[]>([]); // State variable for activities
-  const getActivities = async () => {
-    const querySnapshot = await getDocs(collection(db, "activities"));
-    const activityList: Activity[] = [];
-    console.log(
-      querySnapshot.forEach((doc) => {
-        const data: Activity = {
-          ...(doc.data() as Activity),
-          id: doc.id,
-        };
-        activityList.push(data);
-      })
-    );
-    setActivities(activityList);
-    console.log(activityList);
-  };
-
+  const [queue, setQueue] = useState<Queue | undefined>();
   useEffect(() => {
-    getActivities();
-  }, []);
+    if (queueId)
+      getQueue(queueId).then((queue) => {
+        setQueue(queue);
+      });
+  }, [queueId]);
 
   return (
     <>
@@ -45,7 +37,9 @@ const QueuePage = () => {
       <div className="content_container">
         <h2>Queues</h2>
         {!isLoggedIn && <p>You need to be logged in to view this page</p>}
-        {isLoggedIn && <Activities activities={activities} />}
+        {/* {isLoggedIn && queue?.activities && (
+          <Activities activities={queue.activities} />
+        )} */}
       </div>
     </>
   );

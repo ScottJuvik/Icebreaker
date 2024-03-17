@@ -85,7 +85,7 @@ function ActivityCard(params: Activity) {
     <div className={styleClass}>
       <div className="activity_element" onClick={handleButtonClick}>
         <h3>{params.title}</h3>
-        <p id="user_text">Opprettet av: {params.creator.name}</p>
+        <p id="user_text">Opprettet av: {params.creator}</p>
         {expandMode && <p>Beskrivelse: {params.description}</p>}
         <p id="rating_text">Rating: {params.averageRating}</p>
       </div>

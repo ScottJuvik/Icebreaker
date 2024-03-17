@@ -6,32 +6,18 @@ import { Activity } from "../types/types";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
+//import activitry api
+import { getActivities } from "../api/ActivitiesAPI";
+
 const Home = () => {
   const [search, setSearch] = useState(""); // State variable for search
   const [activities, setActivities] = useState<Activity[]>([]); // State variable for activities
 
-  const getActivities = async () => {
-    const querySnapshot = await getDocs(collection(db, "activities"));
-    const activityList: Activity[] = [];
-
-    querySnapshot.forEach((doc) => {
-      const data: Activity = {
-        ...(doc.data() as Activity),
-        id: doc.id,
-      };
-      activityList.push(data);
-    })
-
-    setActivities(activityList);
-    console.log(activityList);
-  };
-
   useEffect(() => {
-    // Fetch activities when the component mounts
-    // getActivities().then((activities) => setActivities(activities));
-
-    getActivities();
-  }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
+    getActivities().then((activities) => {
+      setActivities(activities);
+    });
+  }, []);
 
   // Update the search state when search term changes
   const onSearch = (searchTerm: string) => {
@@ -40,8 +26,10 @@ const Home = () => {
   };
 
   // Filter activities based on the search term
-  const filteredActivities = activities.filter((activity) =>
-    activity.title && activity.title.toLowerCase().includes(search.toLowerCase())
+  const filteredActivities = activities.filter(
+    (activity) =>
+      activity.title &&
+      activity.title.toLowerCase().includes(search.toLowerCase())
   );
 
   return (

@@ -1,15 +1,16 @@
 export type User = {
   id: number
   name: string
-  userName: string
-  password: string
+  email: string 
+  favorite_ids: string[]
+  queue_ids: string[]
 }
 
 export type Activity = {
   id: string
   title: string
   description: string
-  creator: User
+  creator_id: string
   averageRating: number
   categories: Category[]
 }
@@ -22,5 +23,5 @@ export type Category = {
 export type Queue = {
   id: string
   title: string
-  activities: Activity[]
+  activity_ids: string[]
 }
