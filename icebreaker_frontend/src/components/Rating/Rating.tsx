@@ -10,11 +10,13 @@ interface RatingProps {
 
 const Rating = ({ rating, maxRating }: RatingProps) => {
   //<RatingField maxRating={maxRating} />
+  //do some rounding
+  const roundedRating = Math.round(rating * 10) / 10;
   return (
     <div className="rating-container">
-      <StarIcon filled={true} />
+      <StarIcon className="rating-star" filled={true} />
       <label className="rating-label">
-        {rating}/{maxRating}
+        {roundedRating} / {maxRating}
       </label>
     </div>
   );

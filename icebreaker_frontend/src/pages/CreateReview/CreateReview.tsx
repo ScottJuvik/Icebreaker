@@ -47,7 +47,7 @@ const CreateReview = () => {
       required: true,
     },
     {
-      category: "input",
+      category: "stars",
       name: "rating",
       label: "rating",
       type: "number",
