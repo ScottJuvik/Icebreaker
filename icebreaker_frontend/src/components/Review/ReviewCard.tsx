@@ -1,9 +1,8 @@
 import "./ReviewCard.css";
-import { Review } from "../../types/types";
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
+import { Review } from "../../types/Types";
+import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 
 const ReviewCard = (params: Review) => {
-
   return (
     <>
       <div className="review-container">
@@ -13,7 +12,7 @@ const ReviewCard = (params: Review) => {
         <FlagOutlinedIcon className="report-btn" />
       </div>
     </>
-  )
-}
+  );
+};
 
 export default ReviewCard;

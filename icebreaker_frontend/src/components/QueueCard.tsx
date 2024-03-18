@@ -1,15 +1,33 @@
 import { useEffect, useState } from "react";
-import { Queue } from "../types/types";
+import { Queue } from "../types/Types";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import PlayIcon from "./icons/PlayIcon";
+import { QueueData } from "../types/DatabaseTypes";
+import "../style/QueueStyles.css";
 
-function QueueCard(params: Queue) {
+function QueueCard(params: QueueData) {
+  const navigate = useNavigate();
+
+  const navigateToQueue = () => {
+    navigate(`/queue/${params.id}`);
+  };
+
+  const navigateToPlay = () => {
+    navigate("/");
+  };
+
+  const isMyPage = params.id == "";
   return (
-    <div className="queue">
+    <div className="queue" onClick={navigateToQueue}>
       <h3 className="queue-element">{params.title}</h3>
-      <button className="play-button">
+      {!isMyPage && (
+        <p className="queue-element">
+          {params.dateCreated.toDate().toDateString()}
+        </p>
+      )}
+      <button className="play-button" onClick={navigateToPlay}>
         <PlayIcon />
       </button>
     </div>

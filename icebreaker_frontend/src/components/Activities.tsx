@@ -1,13 +1,9 @@
-import { Activity } from "../types/types";
 import React, { useState, useEffect } from "react";
 import "../style/ActivitiesStyles.css";
 import ActivityCard from "./ActivityCard";
+import { Activity } from "../types/Types";
 
-interface ActivitiesProps {
-  activities: Activity[];
-}
-
-function Activities({ activities }: ActivitiesProps) {
+function Activities({ activities }: { activities: Activity[] }) {
   return (
     <li className="activities">
       <ul>

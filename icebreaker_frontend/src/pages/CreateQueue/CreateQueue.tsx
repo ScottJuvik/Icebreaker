@@ -1,34 +1,32 @@
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import Navbar from "../../components/Navbar/Navbar";
 import { auth, db } from "../../firebase/firebaseConfig";
-import "./CreateReview.css";
+import "./CreateQueue.css";
 import { serverTimestamp } from "firebase/firestore";
 import FormComponent from "../../components/FormComponent/FormComponent";
 import { useNavigate, useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { getLoggedIn, getLoggedInId } from "../../api/LoggedInAPI";
-import { ReviewData } from "../../types/DatabaseTypes";
-import { addReview } from "../../api/ReviewAPI";
+import { QueueData, ReviewData } from "../../types/DatabaseTypes";
+import { addQueue } from "../../api/QueuesAPI";
+import { addQueueId } from "../../api/UserAPI";
 
-const CreateReview = () => {
+const CreateQueue = () => {
   //TODO: Add support for numerical rating.
-  const { activityId } = useParams();
   const navigate = useNavigate();
-  async function postReview(formData: Record<string, string>) {
+  async function postQueue(formData: Record<string, string>) {
     if (!getLoggedIn()) throw new Error("Login required");
 
-    const review: ReviewData = {
+    const queue: QueueData = {
       id: "",
       title: formData["title"],
-      description: formData["description"],
-      activityId: activityId || "",
-      creatorId: getLoggedInId() || "",
-      rating: parseInt(formData["rating"]),
+      activityIds: [],
       dateCreated: Timestamp.now(),
     };
-
-    addReview(review);
-    navigate("../" + activityId);
+    addQueue(queue).then((queueId) => {
+      addQueueId(getLoggedInId(), queueId);
+      navigate("../queue/" + queueId);
+    });
   }
 
   const fields = [
@@ -39,30 +37,16 @@ const CreateReview = () => {
       type: "text",
       required: true,
     },
-    {
-      category: "textarea",
-      name: "description",
-      label: "description",
-      type: "text",
-      required: true,
-    },
-    {
-      category: "input",
-      name: "rating",
-      label: "rating",
-      type: "number",
-      required: true,
-    },
   ];
   return (
     <>
       <Navbar />
       <div className="content-container">
-        <h2 className="header">Create Review:</h2>
-        <FormComponent fields={fields} onSubmit={postReview} />
+        <h2 className="header">Create Queue:</h2>
+        <FormComponent fields={fields} onSubmit={postQueue} />
       </div>
     </>
   );
 };
 
-export default CreateReview;
+export default CreateQueue;

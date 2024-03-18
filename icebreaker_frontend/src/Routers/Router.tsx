@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import QueuesPage from "../pages/QueuesPage";
+import MyPage from "../pages/MyPage";
 import QueuePage from "../pages/QueuePage";
 import NotFoundPage from "../pages/NotFoundPage";
 import CreateActivity from "../pages/CreateActivity/CreateActivity";
 import CreateReview from "../pages/CreateReview/CreateReview";
 import ActivityView from "../pages/ActivityView/ActivityView";
+import CreateQueue from "../pages/CreateQueue/CreateQueue";
 const Router = () => {
   return (
     <BrowserRouter>
@@ -16,8 +17,10 @@ const Router = () => {
         <Route path="/create_activity" element={<CreateActivity />} />
         <Route path="/create_review/:activityId" element={<CreateReview />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/queues" element={<QueuesPage />} />
+        <Route path="/my_page" element={<MyPage />} />
+        <Route path="/create_queue" element={<CreateQueue />} />
         <Route path="/queue/:queueId" element={<QueuePage />} />
+        <Route path="/queue/" element={<QueuePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
