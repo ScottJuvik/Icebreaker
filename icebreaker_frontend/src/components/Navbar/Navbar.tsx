@@ -3,7 +3,7 @@ import "./NavbarStyles.css";
 import { auth, db } from "../../firebase/firebaseConfig";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { getLoggedInName } from "../../api/LoggedInAPI";
+import { getLoggedInName, getLoggedInUser } from "../../api/LoggedInAPI";
 import { get } from "http";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -20,21 +20,6 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const retrieveAdmin = async () => {
-    const userId = sessionStorage.getItem("user_id");
-    if (!userId) {
-      return;
-    }
-    const docRef = doc(db, "users", userId);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      setIsAdmin(docSnap.data().type == "admin");
-    } else {
-      console.log("No such document!");
-    }
-  };
-
   useEffect(() => {
     const token_id = sessionStorage.getItem("user_id");
     if (token_id) {
@@ -43,10 +28,12 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
       setLoggedIn(false);
     }
     console.log("user_id: ", sessionStorage.getItem("user_id"));
-    getLoggedInName().then((value) => {
-      setName(value);
+    getLoggedInUser().then((user) => {
+      if (user) {
+        setName(user.name);
+        setIsAdmin(user.type === "admin");
+      }
     });
-    retrieveAdmin();
   }, [navigate]);
 
   const handleLogOut = () => {
@@ -85,11 +72,6 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
             </Link>
           )}
           {isLoggedIn && isAdmin && <p>ADMIN</p>}
-          <button onClick={toggleMenu} className="menu-button">
-            <span className="menu-line"></span>
-            <span className="menu-line"></span>
-            <span className="menu-line"></span>
-          </button>
         </div>
       </div>
     </>

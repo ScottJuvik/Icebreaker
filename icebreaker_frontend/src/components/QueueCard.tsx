@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import PlayIcon from "./icons/PlayIcon";
 import { QueueData } from "../types/DatabaseTypes";
 import "../style/QueueStyles.css";
+import HeartIcon from "./icons/HeartIcon";
 
 function QueueCard(params: QueueData) {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ function QueueCard(params: QueueData) {
           {params.dateCreated.toDate().toDateString()}
         </p>
       )}
+      {isMyPage && <HeartIcon />}
       <button className="play-button" onClick={navigateToPlay}>
         <PlayIcon />
       </button>

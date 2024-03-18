@@ -2,6 +2,7 @@ import {
   Timestamp,
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -127,6 +128,11 @@ const addActivity = async (activity: ActivityData) => {
   await addDoc(docRef, activity);
 };
 
+const deleteActivity = async (id: string) => {
+  const docRef = doc(db, "activities", id);
+  await deleteDoc(docRef);
+};
+
 export {
   getActivityDatas,
   getActivityDatasWithIds,
@@ -135,4 +141,5 @@ export {
   getActivity,
   getActivityData,
   getActivitiesWithIds,
+  deleteActivity,
 };

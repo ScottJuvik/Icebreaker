@@ -25,6 +25,7 @@ const getUserData = async (id: string): Promise<UserData> => {
     email: "",
     favoriteIds: [],
     queueIds: [],
+    type: "user",
   };
 };
 
@@ -36,6 +37,7 @@ const dataToUserData = (doc: any): UserData => {
     email: doc.data().email || "",
     favoriteIds: doc.data().favoriteIds || [],
     queueIds: doc.data().queueIds || [],
+    type: doc.data().type || "user",
   };
   return data;
 };

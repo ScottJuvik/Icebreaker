@@ -1,6 +1,6 @@
 // useFilteredActivities.tsx
 import React, { useState } from "react";
-import { Activity } from "../types/types";
+import { Activity } from "../types/Types";
 
 interface UseFilteredActivitiesProps {
   initialActivities: Activity[];
@@ -26,8 +26,8 @@ const useFilteredActivities = ({
     .sort((a, b) =>
       isSortedByRating
         ? sortDescending
-          ? b.averageRating - a.averageRating
-          : a.averageRating - b.averageRating
+          ? b.rating - a.rating
+          : a.rating - b.rating
         : 0
     );
 

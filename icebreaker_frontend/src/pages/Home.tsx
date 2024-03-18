@@ -3,35 +3,30 @@ import Navbar from "../components/Navbar/Navbar";
 import SearchBar from "../components/SearchBar";
 import Activities from "../components/Activities";
 import { db } from "../firebase/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
-
-//import activitry api
 import { getActivities } from "../api/ActivitiesAPI";
+import { Activity } from "../types/Types";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import FabButton from "../components/FabButton/FabButton";
 import { useNavigate } from "react-router-dom";
-import { Activity } from "../types/Types";
+import useFilteredActivities from "../hooks/useFilterActivities";
+import { getCategories } from "../api/CategoriesAPI";
+import { CategoryData } from "../types/DatabaseTypes";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState(""); // State variable for search
-  const [activities, setActivities] = useState<Activity[]>([]); // State variable for activities
+  const [search, setSearch] = useState("");
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [categories, setCategories] = useState<CategoryData[]>([]);
 
   useEffect(() => {
     getActivities().then((activities) => {
       setActivities(activities);
     });
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
-import FabButton from "../components/FabButton/FabButton";
-import { useNavigate } from "react-router-dom";
-import useFilteredActivities from "../hooks/useFilterActivities";
-
-const Home = () => {
-  const [search, setSearch] = useState("");
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const navigate = useNavigate();
+    getCategories().then((categories) => {
+      setCategories(categories);
+    });
+  });
 
   const { filteredActivities, toggleSortOrder, clearSortByRating } =
     useFilteredActivities({
@@ -40,36 +35,6 @@ const Home = () => {
       selectedCategory,
     });
 
-  useEffect(() => {
-    const fetchActivities = async () => {
-      const querySnapshot = await getDocs(collection(db, "activities"));
-      const activityList: Activity[] = [];
-      querySnapshot.forEach((doc) => {
-        const data = { ...(doc.data() as Activity), id: doc.id };
-        activityList.push(data);
-      });
-      setActivities(activityList);
-    };
-
-    fetchActivities();
-  }, []);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const docRef = doc(db, "category", "valid categories");
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const categoryData = docSnap.data();
-        setCategories(categoryData.categories);
-      } else {
-        console.log("No such document!");
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
   const onSearch = (searchTerm: string) => {
     setSearch(searchTerm);
     if (searchTerm === "") {
@@ -77,14 +42,6 @@ const Home = () => {
     }
   };
 
-  // Filter activities based on the search term
-  const filteredActivities = activities.filter(
-    (activity) =>
-      activity.title &&
-      activity.title.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const create_activity = () => {
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -105,8 +62,8 @@ const Home = () => {
         <select value={selectedCategory || ""} onChange={handleCategoryChange}>
           <option value="">Select a category.</option>
           {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
+            <option key={category.id} value={category.name}>
+              {category.name}
             </option>
           ))}
         </select>
