@@ -9,6 +9,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { reload } from "@firebase/auth";
 import { getLoggedIn, getLoggedInType } from "../api/LoggedInAPI";
 import { deleteActivity } from "../api/ActivitiesAPI";
+import RatingStjerner from "./Rating/Rating";
 
 function ActivityCard(params: Activity) {
   const [styleClass, setClass] = useState("activity");
@@ -46,7 +47,7 @@ function ActivityCard(params: Activity) {
         <h3>{params.title}</h3>
         <p id="user_text">Opprettet av: {params.creator.name}</p>
         {expandMode && <p>Beskrivelse: {params.description}</p>}
-        <p id="rating_text">Rating: {params.rating}</p>
+        <RatingStjerner rating={params.rating} maxRating={5} />
       </div>
       {isLoggedIn && (
         <div className="activity_actions">
@@ -62,7 +63,11 @@ function ActivityCard(params: Activity) {
             {isAdmin && (
               <FaTrashAlt
                 className="trashbtn"
-                onClick={() => deleteActivity(params.id)}
+                onClick={() =>
+                  deleteActivity(params.id).then(() => {
+                    navigate(0);
+                  })
+                }
               />
             )}
           </div>

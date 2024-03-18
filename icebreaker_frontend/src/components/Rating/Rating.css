@@ -1,0 +1,20 @@
+.rating-container {
+    display: flex;
+    /* Make sure it's a flex container */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* You can remove this if not needed */
+}
+
+.rating-label {
+    margin: 0 3px;
+    /* Decrease the margin to bring the label closer */
+    font-size: 13px;
+    color: #03396c;
+    font-weight: bold;
+    /* Corrected from font-display */
+    text-align: center;
+    /* You can remove this if not needed */
+    padding: 0;
+}

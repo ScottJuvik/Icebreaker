@@ -29,7 +29,11 @@ const ReviewCard = (params: Review) => {
           {isAdmin && (
             <FaTrashAlt
               className="trash-btn"
-              onClick={() => deleteReview(params.id)}
+              onClick={() => {
+                deleteReview(params.id).then(() => {
+                  navigate(0);
+                });
+              }}
             />
           )}
           <FlagOutlinedIcon className="report-btn" />
