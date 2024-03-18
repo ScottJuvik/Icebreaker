@@ -7,10 +7,7 @@ interface RatingFieldProps {
 }
 
 const RatingField = ({ maxRating }: RatingFieldProps) => {
-  const getStarType = (index: number) => {
-    const isFilled = index <= 0;
-    return <StarIcon key={index} filled={isFilled} />;
-  };
+  const [rating, setRating] = useState(0);
 
   // return (
   //   <div className="rating-container">
@@ -36,7 +33,7 @@ const RatingField = ({ maxRating }: RatingFieldProps) => {
               }}
               onMouseEnter={() => setHover(currentRating)}
               onMouseLeave={() => setHover(null)}
-              onClick={() => console.log(currentRating)}
+              onClick={() => setRating(currentRating)}
             >
               &#9733;
             </span>

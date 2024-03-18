@@ -63,7 +63,11 @@ function ActivityCard(params: Activity) {
             {isAdmin && (
               <FaTrashAlt
                 className="trashbtn"
-                onClick={() => deleteActivity(params.id)}
+                onClick={() =>
+                  deleteActivity(params.id).then(() => {
+                    navigate(0);
+                  })
+                }
               />
             )}
           </div>
