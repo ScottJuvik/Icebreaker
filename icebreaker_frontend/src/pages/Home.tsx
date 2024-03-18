@@ -14,18 +14,23 @@ import { CategoryData } from "../types/DatabaseTypes";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [search, setSearch] = useState("");
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [categories, setCategories] = useState<CategoryData[]>([]);
 
   useEffect(() => {
-    getActivities().then((activities) => {
-      setActivities(activities);
-    });
-    getCategories().then((categories) => {
-      setCategories(categories);
-    });
+    if (isLoading) {
+      getActivities().then((activities) => {
+        setActivities(activities);
+        getCategories().then((categories) => {
+          setCategories(categories);
+          setIsLoading(false);
+        });
+      });
+    }
+    console.log("selectedCategory: ", selectedCategory);
   });
 
   const { filteredActivities, toggleSortOrder, clearSortByRating } =
