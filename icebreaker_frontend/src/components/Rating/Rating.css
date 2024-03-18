@@ -1,0 +1,42 @@
+.rating-container {
+    display: flex;
+    align-items: center;
+}
+
+.starFilled,
+.starHalfFilled,
+.starEmpty {
+    font-size: 24px;
+    user-select: none;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.starFilled::before,
+.starHalfFilled::before,
+.starEmpty::before {
+    content: "★";
+    position: absolute;
+}
+
+.starFilled::before {
+    color: gold;
+}
+
+.starHalfFilled::before {
+    color: gold;
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%);
+}
+
+.starHalfFilled {
+    color: #ccc;
+}
+
+.starEmpty::before {
+    color: #ccc;
+
+}
