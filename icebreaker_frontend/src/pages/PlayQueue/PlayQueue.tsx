@@ -2,44 +2,58 @@ import "./PlayQueue.css";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import { getQueue } from "../../api/QueuesAPI";
-import { getActivity } from "../../api/ActivitiesAPI";
+import { getActivitiesWithIds, getActivity } from "../../api/ActivitiesAPI";
 import { useEffect, useState } from "react";
 import { Activity, Queue } from "../../types/Types";
 import ExpandedActivity from "../../components/ExpandedActivity/ExpandedActivity";
 import ActivityCard from "../../components/ActivityCard";
 import Timer from "../../components/Timer/Timer";
 import { useStopwatch } from "react-timer-hook";
+import FabButton from "../../components/FabButton/FabButton";
+
 const PlayQueue = () => {
+  const [running, setPlay] = useState(false);
   const { queueId } = useParams();
-  const [queue, setQueue] = useState<Queue>();
+  const [queue, setQueue] = useState<Activity[]>([]);
   const [activity, setActivity] = useState<Activity>();
-  const {
-    seconds,
-    minutes,
-    start,
-    pause,
-    reset,
-  } = useStopwatch({ autoStart: true });
+  const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
-    getQueue(queueId || "").then((queue) => {
+    getQueue(queueId || "").then((q) => {
       //TODO:  
-      setQueue(queue);
-      //FIX: temporary solution
-      const a = getActivity("3QsiXh7iKekUr1pkp0hB")
-      getActivity("3QsiXh7iKekUr1pkp0hB").then(a => {
-        setActivity(a);
-      })
-
+      setQueue(q.activities);
+      if (queue.length > 0) {
+        selectActivity(queue[0].id)
+      }
     }
     )
   }, []);
+
+  const selectActivity = (activiyId: string) => {
+    queue?.forEach(a => {
+      if (a.id === activiyId) {
+        setActivity(a);
+      }
+    });
+  }
+
+  //Used for selecting an activity based on the current index and an offset.
+  //For example if index is 5 you can do offset -5 to select the first activity in the queue.
+  const selectRelativeActivity = (offset: number) => {
+    const a = queue[index + offset]
+    setActivity(a)
+  }
+
   return (<>
     <Navbar />
-    <div className="content-container">
-      {activity ? <ActivityCard key={activity.id} {...activity} /> : null}
-      <p>{activity?.description}</p>
-      <Timer minutes={minutes} seconds={seconds} />
+    <div className="play-container">
+      <div className="activity-bar">
+        <div className="prev-btn" onClick={() => selectRelativeActivity(-1)}>{"<"}</div>
+        {activity ? <ActivityCard key={activity.id} {...activity} /> : null}
+        <div className="next-btn" onClick={() => selectRelativeActivity(1)}>{">"}</div>
+      </div>
+      <Timer />
+
     </div>
   </>)
 }

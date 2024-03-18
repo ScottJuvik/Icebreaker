@@ -1,0 +1,21 @@
+.play-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-bar {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.prev-btn {
+  font-size: xx-large;
+
+}
+
+.next-btn {
+  font-size: xx-large;
+}

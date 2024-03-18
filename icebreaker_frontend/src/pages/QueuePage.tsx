@@ -33,7 +33,7 @@ const QueuePage = () => {
   // }, [queueId]);
 
   const navigateToPlay = () => {
-    navigate("/play/:queueId");
+    navigate("/play/" + queueId);
   };
 
   return (
