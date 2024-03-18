@@ -1,3 +1,5 @@
+import { Timestamp } from "@firebase/firestore"
+
 export type User = {
   id: number
   name: string

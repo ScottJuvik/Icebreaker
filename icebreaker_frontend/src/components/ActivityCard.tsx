@@ -68,9 +68,8 @@ function ActivityCard(params: Activity) {
   }, [favorites]);
 
   const handleButtonClick = () => {
-    toggleExpand(!expandMode);
-    setClass(expandMode ? "activity" : "expanded_activity");
-  };
+    navigate("/" + params.id);
+  }
 
   const handleChange = () => {
     if (!value) {
@@ -78,9 +77,12 @@ function ActivityCard(params: Activity) {
     } else {
       deleteFavorites();
     }
-    setValue(!value);
-  };
+    setValue(!value)
+  }
 
+  const handleReviewButton = () => {
+    navigate("/create_review/" + params.id);
+  }
   return (
     <div className={styleClass}>
       <div className="activity_element" onClick={handleButtonClick}>
@@ -89,9 +91,9 @@ function ActivityCard(params: Activity) {
         {expandMode && <p>Beskrivelse: {params.description}</p>}
         <p id="rating_text">Rating: {params.averageRating}</p>
       </div>
-      {isLoggedIn && (
-        <div className="activity_actions">
-          <button>Vurder</button>
+      {isLoggedIn &&
+        <div className="activity_actions" >
+          <button onClick={handleReviewButton}>Vurder</button>
           <button>Rapporter</button>
           <input
             checked={value}

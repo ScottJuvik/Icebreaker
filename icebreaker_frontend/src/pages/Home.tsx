@@ -8,6 +8,8 @@ import { collection, getDocs } from "firebase/firestore";
 
 //import activitry api
 import { getActivities } from "../api/ActivitiesAPI";
+import FabButton from "../components/FabButton/FabButton";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [search, setSearch] = useState(""); // State variable for search
@@ -32,6 +34,10 @@ const Home = () => {
       activity.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const create_activity = () => {
+    navigate("/create_activity");
+  };
+
   return (
     <>
       <Navbar />
@@ -40,6 +46,7 @@ const Home = () => {
         <SearchBar onSearch={onSearch} />
         <Activities activities={filteredActivities} />
       </div>
+      <FabButton handleClick={create_activity} icon="add" />
     </>
   );
 };
