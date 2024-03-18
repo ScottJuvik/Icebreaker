@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
-import SearchBar from "../components/SearchBar";
-import Activities from "../components/Activities";
-import { db } from "../firebase/firebaseConfig";
-import { getActivities } from "../api/ActivitiesAPI";
-import { Activity } from "../types/Types";
+import Navbar from "../../components/Navbar/Navbar";
+import SearchBar from "../../components/Searchbar/SearchBar";
+import Activities from "../../components/Activities/Activities";
+import { db } from "../../firebase/firebaseConfig";
+import { getActivities } from "../../api/ActivitiesAPI";
+import { Activity } from "../../types/Types";
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
-import FabButton from "../components/FabButton/FabButton";
+import FabButton from "../../components/FabButton/FabButton";
 import { useNavigate } from "react-router-dom";
-import useFilteredActivities from "../hooks/useFilterActivities";
-import { getCategories } from "../api/CategoriesAPI";
-import { CategoryData } from "../types/DatabaseTypes";
+import useFilteredActivities from "../../hooks/useFilterActivities";
+import { getCategories } from "../../api/CategoriesAPI";
+import { CategoryData } from "../../types/DatabaseTypes";
+import "./Home.css";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -30,7 +31,6 @@ const Home = () => {
         });
       });
     }
-    console.log("selectedCategory: ", selectedCategory);
   });
 
   const { filteredActivities, toggleSortOrder, clearSortByRating } =
@@ -69,23 +69,27 @@ const Home = () => {
               className="category_dropdown"
             >
               <option value="" className="category_dropdown">
-                Velg en kategori.
+                Velg en kategori
               </option>
               {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
+                <option key={category.id} value={category.name}>
+                  {category.name}
                 </option>
               ))}
             </select>
           </div>
           <SearchBar onSearch={onSearch} />
         </div>
-        <button onClick={toggleSortOrder} className="buttonSort">
-          Toggle Sort by Rating
-        </button>
-        <Activities activities={filteredActivities} />
+        <div className="activity-button-container">
+          <div className="btn-fab-container">
+            <button onClick={toggleSortOrder} className="buttonSort">
+              Rangering
+            </button>
+            <FabButton handleClick={createActivity} icon="add" />
+          </div>
+          <Activities activities={filteredActivities} />
+        </div>
       </div>
-      <FabButton handleClick={createActivity} icon="add" />
     </>
   );
 };

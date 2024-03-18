@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import Activities from "../../components/Activities";
+import Activities from "../../components/Activities/Activities";
 import ExpandedActivity from "../../components/ExpandedActivity/ExpandedActivity";
 import Navbar from "../../components/Navbar/Navbar";
 import ReviewCard from "../../components/Review/ReviewCard";

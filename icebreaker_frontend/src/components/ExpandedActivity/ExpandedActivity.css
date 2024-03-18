@@ -45,16 +45,16 @@
     /* Set heart SVG as background */
 }
 
-.activity_checkbox:hover {
+.activity_checkbox:hover, .rate-div:hover {
   transform: scale(1.10);
   cursor: pointer;
 }
-
 
 .report-btn {
   margin-top: 10px;
   margin-left: 5px;
   border-radius: 15px;
+  float: right;
 }
 
 .report-btn:hover {

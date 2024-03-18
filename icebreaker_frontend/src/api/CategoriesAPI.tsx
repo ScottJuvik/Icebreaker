@@ -28,6 +28,7 @@ const getCategory = async (id: string): Promise<CategoryData> => {
   return {
     id: id,
     name: "",
+    color: "#ffffff",
   };
 };
 
@@ -36,6 +37,7 @@ const dataToCategory = (doc: any): CategoryData => {
     ...(doc.data() as CategoryData),
     id: doc.id,
     name: doc.data().name || "",
+    color: doc.data().color || "#ffffff",
   };
   return data;
 };

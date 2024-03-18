@@ -1,6 +1,7 @@
 .navbar {
     background: rgb(88, 113, 224);
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
@@ -14,6 +15,10 @@
     right: 0;
     display: flex;
     align-items: center;
+}
+
+#navbar-name{
+    font-family:  var(--font-family);
 }
 
 nav {
@@ -89,7 +94,7 @@ p {
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 20px;
-    font-family: 'Gudea';
+    font-family: inherit;
     font-style: bold;
 
 }
