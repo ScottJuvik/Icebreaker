@@ -18,6 +18,38 @@ const ActivityView = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const navigate = useNavigate();
 
+  const getActivity = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "activities"));
+      querySnapshot.forEach((doc) => {
+        if (doc.id === activityId) {
+          setActivity(doc.data() as Activity);
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching activity:", error);
+    }
+  };
+
+  const getReviews = async (activityId: string) => {
+    try {
+      const reviewList: Review[] = [];
+      const querySnapshot = await getDocs(collection(db, "reviews"));
+      querySnapshot.forEach((doc) => {
+        const data: Review = {
+          ...(doc.data() as Review),
+          id: doc.id,
+        };
+        if (data.activityId === activityId) {
+          reviewList.push(data);
+        }
+        setReviews(reviewList);
+        console.log(reviewList);
+      });
+    } catch (error) {
+      console.error("Error fetching reviews", error);
+    }
+  };
   useEffect(() => {
     if (!activityId) return;
     getActivity(activityId).then((activity) => {

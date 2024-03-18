@@ -8,6 +8,8 @@ import CreateActivity from "../pages/CreateActivity/CreateActivity";
 import CreateReview from "../pages/CreateReview/CreateReview";
 import ActivityView from "../pages/ActivityView/ActivityView";
 import CreateQueue from "../pages/CreateQueue/CreateQueue";
+import Admin from "../pages/Admin";
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -16,6 +18,7 @@ const Router = () => {
         <Route path="/:activityId" element={<ActivityView />} />
         <Route path="/create_activity" element={<CreateActivity />} />
         <Route path="/create_review/:activityId" element={<CreateReview />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/my_page" element={<MyPage />} />
         <Route path="/create_queue" element={<CreateQueue />} />

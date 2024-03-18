@@ -29,4 +29,17 @@
 
 .report-btn:hover {
   color: #d10a0a;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.trash-btn {
+  border-radius: 15px;
+  padding-bottom: 3px;
+}
+
+.trash-btn:hover {
+  color: #d10a0a;
+  cursor: pointer;
+  font-size: 24px;
 }
