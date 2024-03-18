@@ -8,6 +8,7 @@ import CreateActivity from "../pages/CreateActivity/CreateActivity";
 import CreateReview from "../pages/CreateReview/CreateReview";
 import ActivityView from "../pages/ActivityView/ActivityView";
 import CreateQueue from "../pages/CreateQueue/CreateQueue";
+import PlayQueue from "../pages/PlayQueue/PlayQueue";
 const Router = () => {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ const Router = () => {
         <Route path="/my_page" element={<MyPage />} />
         <Route path="/create_queue" element={<CreateQueue />} />
         <Route path="/queue/:queueId" element={<QueuePage />} />
+        <Route path="/play/:queueId" element={<PlayQueue />} />
         <Route path="/queue/" element={<QueuePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

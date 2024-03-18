@@ -20,7 +20,6 @@ const QueuePage = () => {
 
   useEffect(() => {
     if (!getLoggedIn()) navigate("/login");
-    console.log("queueId: ", queueId);
     getQueue(queueId || "").then((queue) => {
       setQueue(queue);
       setIsEmpty(queue.activities.length === 0);
@@ -34,7 +33,7 @@ const QueuePage = () => {
   // }, [queueId]);
 
   const navigateToPlay = () => {
-    navigate("/");
+    navigate("/play/:queueId");
   };
 
   return (
