@@ -7,11 +7,12 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    width: 100%;
 }
 
 .navbar_container {
     position: absolute;
-    right:0;
+    right: 0;
     display: flex;
     align-items: center;
 }
@@ -55,28 +56,41 @@ button:hover {
 }
 
 .menu-button {
-    position: relative; 
-    background: none; 
-    border: none; 
-    color: #FDFDFD; 
-    cursor: pointer; 
-    padding: 10px 20px; 
-    border-radius: 5px; 
+    position: relative;
+    background: none;
+    border: none;
+    color: #FDFDFD;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 .menu-line {
     display: block;
-    width: 30px; 
-    height: 3px; 
-    background-color: #FDFDFD; 
-    margin: 5px 0; 
+    width: 30px;
+    height: 3px;
+    background-color: #FDFDFD;
+    margin: 5px 0;
     transition: all 0.3s ease;
 }
 
 .menu-button:hover .menu-line {
-    background-color: #cbdced; 
+    background-color: #cbdced;
 }
 
 .navbarTitle {
     margin: 0;
+}
+
+p {
+    background: #d4121200;
+    border: none;
+    color: #FDFDFD;
+
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-family: 'Gudea';
+    font-style: bold;
+
 }

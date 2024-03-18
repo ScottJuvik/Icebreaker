@@ -1,0 +1,21 @@
+.content-container {
+  width: 70%;
+  margin: 0 auto;
+  background: white;
+  padding: 1rem;
+}
+
+.header {
+  text-align: center;
+  color: black;
+}
+
+.form-container {
+  justify-content: center;
+  width: 100%;
+  background-color: white;
+  padding: 40px;
+  /* Increased padding for better contrast */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
