@@ -61,17 +61,28 @@ const Home = () => {
     <>
       <Navbar />
       <div className="content_container">
-        <h2>Activities</h2>
-        <SearchBar onSearch={onSearch} />
-        <button onClick={toggleSortOrder}>Toggle Sort by Rating</button>
-        <select value={selectedCategory || ""} onChange={handleCategoryChange}>
-          <option value="">Select a category.</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.name}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <div className="search_category_container">
+          <div className="category_container">
+            <select
+              value={selectedCategory || ""}
+              onChange={handleCategoryChange}
+              className="category_dropdown"
+            >
+              <option value="" className="category_dropdown">
+                Velg en kategori.
+              </option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+          <SearchBar onSearch={onSearch} />
+        </div>
+        <button onClick={toggleSortOrder} className="buttonSort">
+          Toggle Sort by Rating
+        </button>
         <Activities activities={filteredActivities} />
       </div>
       <FabButton handleClick={createActivity} icon="add" />
