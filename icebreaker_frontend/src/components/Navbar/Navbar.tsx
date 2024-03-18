@@ -3,8 +3,9 @@ import "./NavbarStyles.css";
 import { auth, db } from "../../firebase/firebaseConfig";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { getLoggedInName } from "../../api/LoggedInAPI";
+import { getLoggedInName, getLoggedInUser } from "../../api/LoggedInAPI";
 import { get } from "http";
+import { doc, getDoc } from "firebase/firestore";
 
 interface NavbarProps {
   atLoginPage?: boolean;
@@ -15,6 +16,8 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [name, setName] = useState("");
 
+  const [isMenuVisible, setMenuVisible] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,8 +28,11 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
       setLoggedIn(false);
     }
     console.log("user_id: ", sessionStorage.getItem("user_id"));
-    getLoggedInName().then((value) => {
-      setName(value);
+    getLoggedInUser().then((user) => {
+      if (user) {
+        setName(user.name);
+        setIsAdmin(user.type === "admin");
+      }
     });
   }, [navigate]);
 
@@ -65,6 +71,7 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
               <button>LOGG IN</button>
             </Link>
           )}
+          {isLoggedIn && isAdmin && <p>ADMIN</p>}
         </div>
       </div>
     </>

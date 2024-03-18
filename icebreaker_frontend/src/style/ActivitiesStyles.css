@@ -21,6 +21,7 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
   transition: all 0.1s ease;
   height: 20vh;
+  cursor: pointer;
 }
 
 .activity_element {
@@ -30,7 +31,7 @@
   justify-content: center;
   margin: 0px;
   padding: 0px 10px;
-  width: 80%;
+  width: 70%;
   padding-top: 12%;
   padding-bottom: 12%;
 }
@@ -56,7 +57,7 @@
   justify-content: center;
   margin: 0px;
   padding: 0px 10px;
-  width: 20%;
+  width: 30%;
 }
 
 img.activity_element {
@@ -71,19 +72,20 @@ img.activity_element {
 }
 
 .activity_checkbox {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.1111 3C19.6333 3 22 6.3525 22 9.48C22 15.8138 12.1778 21 12 21C11.8222 21 2 15.8138 2 9.48C2 6.3525 4.36667 3 7.88889 3C9.91111 3 11.2333 4.02375 12 4.92375C12.7667 4.02375 14.0889 3 16.1111 3Z' fill='red' stroke='none' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");/* Set heart SVG as background */
-    background-size: contain;
-    border: none;
-    /* Remove default border */
-    border-radius: 5px;
-    /* Add border radius */
-    transition: all 0.1s ease;
+  size: 25px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.1111 3C19.6333 3 22 6.3525 22 9.48C22 15.8138 12.1778 21 12 21C11.8222 21 2 15.8138 2 9.48C2 6.3525 4.36667 3 7.88889 3C9.91111 3 11.2333 4.02375 12 4.92375C12.7667 4.02375 14.0889 3 16.1111 3Z' fill='red' stroke='none' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    /* Set heart SVG as background */
+   /* Set star SVG as background */
+  background-size: contain;
+  border: none;
+  /* Remove default border */
+  border-radius: 5px;
+  /* Add border radius */
+  transition: all 0.1s ease;
 }
 
 .activity:hover {
@@ -96,7 +98,6 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 .activity_checkbox:checked {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.1111 3C19.6333 3 22 6.3525 22 9.48C22 15.8138 12.1778 21 12 21C11.8222 21 2 15.8138 2 9.48C2 6.3525 4.36667 3 7.88889 3C9.91111 3 11.2333 4.02375 12 4.92375C12.7667 4.02375 14.0889 3 16.1111 3Z' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E");
-    /* Set heart SVG as background */
 }
 
 #rating_text {
@@ -109,4 +110,33 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   color: #667f93;
   font-size: 70%;
   margin: 0px 0px 10px 0px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+    font-size: 20px;
+  }
+
+  to {
+    transform: rotate(360deg);
+    font-size: 50px;
+  }
+}
+
+.trashbtn {
+  font-size: 35px;
+  color: aliceblue;
+  cursor: pointer;
+  padding-bottom: 3px;
+}
+
+.trashbtn:hover {
+  font-size: 40px;
+  color: #d10a0a;
+  cursor: pointer;
+}
+
+.onclickButtons {
+  flex-direction: row;
 }

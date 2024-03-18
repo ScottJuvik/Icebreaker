@@ -1,25 +1,30 @@
 import { useEffect, useState } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { Activity } from "../types/Types";
 import { getFavorite, updateFavorite } from "../api/FavoriteAPI";
+import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import "../style/ActivitiesStyles.css";
+import { FaTrashAlt } from "react-icons/fa";
+import { reload } from "@firebase/auth";
+import { getLoggedIn, getLoggedInType } from "../api/LoggedInAPI";
+import { deleteActivity } from "../api/ActivitiesAPI";
 
 function ActivityCard(params: Activity) {
   const [styleClass, setClass] = useState("activity");
   const [expandMode, toggleExpand] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isFavorite, setFavorite] = useState<boolean>(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoggedIn(
-      sessionStorage.getItem("user_id") !== "" &&
-        sessionStorage.getItem("user_id") !== null
-    );
+    setLoggedIn(getLoggedIn());
     getFavorite(params.id).then((value) => {
       setFavorite(value);
+    });
+    getLoggedInType().then((value) => {
+      setIsAdmin(value === "admin");
     });
   }, [navigate]);
 
@@ -27,7 +32,7 @@ function ActivityCard(params: Activity) {
     navigate("/" + params.id);
   };
 
-  const handleChange = () => {
+  const handleFavoriteChange = () => {
     updateFavorite(params.id, !isFavorite);
     setFavorite(!isFavorite);
   };
@@ -47,12 +52,20 @@ function ActivityCard(params: Activity) {
         <div className="activity_actions">
           <button onClick={handleReviewButton}>Vurder</button>
           <button>Rapporter</button>
-          <input
-            checked={isFavorite}
-            onChange={handleChange}
-            type="checkbox"
-            className="activity_checkbox"
-          />
+          <div className="onclickButtons">
+            <input
+              checked={isFavorite}
+              onChange={handleFavoriteChange}
+              type="checkbox"
+              className="activity_checkbox"
+            />
+            {isAdmin && (
+              <FaTrashAlt
+                className="trashbtn"
+                onClick={() => deleteActivity(params.id)}
+              />
+            )}
+          </div>
         </div>
       )}
     </div>

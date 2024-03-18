@@ -1,4 +1,11 @@
-import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useState } from "react";
 import { Review, User } from "../types/Types";
@@ -69,4 +76,18 @@ const addReview = async (review: ReviewData) => {
   }
 };
 
-export { getReviewDatas, getReviews, getAverageRating, addReview };
+const deleteReview = async (reviewId: string) => {
+  try {
+    await deleteDoc(doc(db, "reviews", reviewId));
+  } catch (e) {
+    console.error("Error deleting review: ", e);
+  }
+};
+
+export {
+  getReviewDatas,
+  getReviews,
+  getAverageRating,
+  addReview,
+  deleteReview,
+};

@@ -6,6 +6,7 @@ export type UserData = {
   email: string;
   favoriteIds: string[];
   queueIds: string[];
+  type: string;
 };
 
 export type ActivityData = {

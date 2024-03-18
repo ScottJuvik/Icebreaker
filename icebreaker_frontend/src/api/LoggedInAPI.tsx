@@ -16,4 +16,22 @@ const getLoggedInName = async (): Promise<string> => {
   const user = await getUserData(sessionStorage.getItem("user_id") || "");
   return user.name;
 };
-export { getLoggedIn, getLoggedInId, getLoggedInName };
+
+const getLoggedInType = async (): Promise<string> => {
+  if (!getLoggedIn()) return "";
+  const user = await getUserData(sessionStorage.getItem("user_id") || "");
+  return user.type;
+};
+
+const getLoggedInUser = async () => {
+  if (!getLoggedIn()) return;
+  return await getUserData(sessionStorage.getItem("user_id") || "");
+};
+
+export {
+  getLoggedIn,
+  getLoggedInId,
+  getLoggedInName,
+  getLoggedInType,
+  getLoggedInUser,
+};
