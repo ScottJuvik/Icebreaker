@@ -22,7 +22,6 @@ const FabButton: React.FC<FabButtonProps> = ({ handleClick, icon }) => {
           {icon === "add" ? <AddIcon /> : null}
           {icon === "review" ? <AddCommentOutlined /> : null}
           {icon === "play" ? <PlayIcon /> : null}
-          Opprett aktivtiet
         </Fab>
       </div>
     </>
