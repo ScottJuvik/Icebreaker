@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../style/ActivitiesStyles.css";
+import "./ActivitiesStyles.css";
 import ActivityCard from "./ActivityCard";
-import { Activity } from "../types/Types";
+import { Activity } from "../../types/Types";
 
 function Activities({ activities }: { activities: Activity[] }) {
   return (

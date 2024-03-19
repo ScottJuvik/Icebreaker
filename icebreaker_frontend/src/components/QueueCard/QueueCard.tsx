@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Queue } from "../types/Types";
+import { Queue } from "../../types/Types";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import PlayIcon from "./icons/PlayIcon";
-import { QueueData } from "../types/DatabaseTypes";
-import "../style/QueueStyles.css";
-import HeartIcon from "./icons/HeartIcon";
+import PlayIcon from "../icons/PlayIcon";
+import { QueueData } from "../../types/DatabaseTypes";
+import "../../style/QueueStyles.css";
+import HeartIcon from "../icons/HeartIcon";
 
 function QueueCard(params: QueueData) {
   const navigate = useNavigate();

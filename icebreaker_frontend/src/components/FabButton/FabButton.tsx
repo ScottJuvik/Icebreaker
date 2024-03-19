@@ -14,10 +14,10 @@ const FabButton: React.FC<FabButtonProps> = ({ handleClick, icon }) => {
     <>
       <div className="fab-container">
         <Fab
+          variant="extended"
           color="primary"
           aria-label="add"
           onClick={handleClick}
-          size="large"
         >
           {icon === "add" ? <AddIcon /> : null}
           {icon === "review" ? <AddCommentOutlined /> : null}

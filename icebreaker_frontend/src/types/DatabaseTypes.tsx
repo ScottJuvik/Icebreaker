@@ -21,6 +21,7 @@ export type ActivityData = {
 export type CategoryData = {
   id: string;
   name: string;
+  color: string;
 };
 
 export type QueueData = {

@@ -21,7 +21,7 @@ const useFilteredActivities = ({
       activity.title.toLowerCase().includes(search.toLowerCase())
     )
     .filter((activity) =>
-      selectedCategory ? activity.category === selectedCategory : true
+      selectedCategory ? activity.category.name === selectedCategory : true
     )
     .sort((a, b) =>
       isSortedByRating

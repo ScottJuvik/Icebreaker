@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
-import SearchBar from "../components/SearchBar";
-import Activities from "../components/Activities";
-import QueueCard from "../components/QueueCard";
+import SearchBar from "../components/Searchbar/SearchBar";
+import Activities from "../components/Activities/Activities";
+import QueueCard from "../components/QueueCard/QueueCard";
 import { Activity } from "../types/Types";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";

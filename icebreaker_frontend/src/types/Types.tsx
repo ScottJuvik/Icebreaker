@@ -18,7 +18,10 @@ export type Activity = {
     name: string;
   };
   rating: number;
-  category: string;
+  category: {
+    name: string;
+    color: string;
+  };
   dateCreated: Timestamp;
 };
 

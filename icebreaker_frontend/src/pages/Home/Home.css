@@ -1,0 +1,74 @@
+.content_container {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonSort {
+    left: 0;
+    background: none; /* No background */
+    border: none; /* No border */
+    padding: 0; /* No padding */
+    margin-left: 6%; /* No margins */
+    margin-top: 15px;
+    font-family:  var(--font-family); /* Inherit the font from the parent element */
+    font-size: inherit; /* Inherit the font size from the parent element */
+    color: inherit; /* Inherit the font color from the parent element */
+    cursor: pointer; /* Change mouse cursor to pointer on hover */
+  }
+
+  .buttonSort:focus {
+    outline: none; /* No focus outline */
+  }
+  .buttonSort:hover{
+    color: rgb(0, 75, 166);
+  }
+
+  .buttonSort:active{
+    color: rgb(0, 75, 166);
+    text-decoration: underline;
+  }
+
+
+  .btn-fab-container, .activity-button-container{
+    width: 100%;
+  }
+
+  .btn-fab-container{
+    margin-top: 2%;
+  }
+
+
+  .search_category_container {
+    background: rgba(0, 0, 0, 0.5);
+    height: 55px;
+    width: 60%;
+    display: flex; /* Enables flexbox layout */
+    justify-content: center; /* Centers items on the main-axis, which is horizontal by default */
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    border-radius: 30px;
+  }
+
+  .category_container{
+    display: block;
+    height: 100%;
+    padding: 3%;
+    border-radius: 30px; /* Rounded corners */
+  }
+
+.category_dropdown {
+    background: rgba(0, 0, 0, 0);
+    border: none; /* No border */
+    padding:2px; /* Padding inside the dropdown */
+    height: 100%;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-family:  var(--font-family);
+  }
