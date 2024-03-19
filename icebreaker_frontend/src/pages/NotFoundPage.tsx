@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
-import SearchBar from "../components/SearchBar";
-import Activities from "../components/Activities";
-import ActivityCard from "../components/ActivityCard";
+import SearchBar from "../components/Searchbar/SearchBar";
+import Activities from "../components/Activities/Activities";
+import ActivityCard from "../components/Activities/ActivityCard";
 import { Activity } from "../types/Types";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";

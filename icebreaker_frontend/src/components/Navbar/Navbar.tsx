@@ -61,7 +61,9 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
         </Link>
         <div className="navbar_container">
           {!atLoginPage && isLoggedIn && !atMyPage && (
-            <button onClick={navigateToMyPage}>{name}</button>
+            <button id="navbar-name" onClick={navigateToMyPage}>
+              {name}
+            </button>
           )}
           {!atLoginPage && isLoggedIn && atMyPage && (
             <button onClick={handleLogOut}>LOGG UT</button>

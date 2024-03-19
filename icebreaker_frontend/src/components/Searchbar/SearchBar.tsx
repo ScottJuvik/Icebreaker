@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
-import "../style/SearchBarStyles.css";
+import SearchIcon from "@mui/icons-material/Search";
+import "./SearchBarStyles.css";
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
@@ -21,8 +22,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleChange}
         className="search_input"
-        placeholder="Search..."
+        placeholder="Søk på en aktivitiet..."
       />
+      <span className="search-icon">
+        <i>
+          <SearchIcon fontSize="large" />
+        </i>
+      </span>
     </div>
   );
 };

@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { Activity } from "../types/Types";
-import { ActivityData, UserData } from "../types/DatabaseTypes";
+import { ActivityData, CategoryData, UserData } from "../types/DatabaseTypes";
 import { getUserData } from "./UserAPI";
 import { getAverageRating } from "./ReviewAPI";
 import { getCategory } from "./CategoriesAPI";
@@ -43,7 +43,7 @@ const getActivitiesWithIds = async (ids: string[]): Promise<Activity[]> => {
       const creator = await getUserData(activityData.creatorId);
       const rating = await getAverageRating(activityData.id);
       const category = await getCategory(activityData.categoryId);
-      return dataToActivity(activityData, creator, rating, category.name);
+      return dataToActivity(activityData, creator, rating, category);
     })
   );
 
@@ -57,7 +57,7 @@ const getActivities = async (): Promise<Activity[]> => {
       const creator = await getUserData(activityData.creatorId);
       const rating = await getAverageRating(activityData.id);
       const category = await getCategory(activityData.categoryId);
-      return dataToActivity(activityData, creator, rating, category.name);
+      return dataToActivity(activityData, creator, rating, category);
     })
   );
 
@@ -80,7 +80,7 @@ const dataToActivity = (
   activityData: ActivityData,
   creator: UserData,
   rating: number,
-  category: string
+  category: CategoryData
 ): Activity => {
   const data: Activity = {
     id: activityData.id,
@@ -91,7 +91,10 @@ const dataToActivity = (
       name: creator.name,
     },
     rating: rating,
-    category: category,
+    category: {
+      name: category.name,
+      color: category.color,
+    },
     dateCreated: activityData.dateCreated,
   };
   return data;
@@ -120,7 +123,7 @@ const getActivity = async (id: string): Promise<Activity> => {
   const creator = await getUserData(activityData.creatorId);
   const rating = await getAverageRating(id);
   const category = await getCategory(activityData.categoryId);
-  return dataToActivity(activityData, creator, rating, category.name);
+  return dataToActivity(activityData, creator, rating, category);
 };
 
 const addActivity = async (activity: ActivityData) => {

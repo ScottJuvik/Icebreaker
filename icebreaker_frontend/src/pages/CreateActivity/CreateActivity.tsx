@@ -43,7 +43,7 @@ const CreateActivity = () => {
       required: true,
     },
     {
-      category: "input",
+      category: "category",
       name: "category",
       label: "category",
       type: "text",

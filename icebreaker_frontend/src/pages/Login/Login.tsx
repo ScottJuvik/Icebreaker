@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, db } from "../firebase/firebaseConfig";
+import { auth, db } from "../../firebase/firebaseConfig";
 import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
-import Navbar from "../components/Navbar/Navbar";
-import "../style/Login.css";
+import Navbar from "../../components/Navbar/Navbar";
+import "./Login.css";
 import { FcGoogle } from "react-icons/fc";
-import { getUserData } from "../api/UserAPI";
+import { getUserData } from "../../api/UserAPI";
 
 const Login = () => {
   const [token, setToken] = useState<string>("");
@@ -18,7 +18,7 @@ const Login = () => {
       name: name,
       email: email,
       favorites: [],
-      type: "user"
+      type: "user",
     });
     setToken(docRef.id);
     setName(name);

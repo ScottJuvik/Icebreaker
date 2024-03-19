@@ -5,20 +5,19 @@
   justify-content: space-between;
   background: #8f95a300;
   margin: 10px 0px;
-  width: 70%;
+  width: 100%;
 }
 
 .activity {
-  background: rgb(100, 151, 177);
-  background: linear-gradient(343deg, rgba(100, 151, 177, 1) 0%, rgba(179, 205, 224, 1) 39%);
-  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
   display: flex;
   flex-direction: vertical;
   align-items: center;
   justify-content: center;
-  margin: 5px;
+  margin: 20px;
   padding: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.1s ease;
   height: 20vh;
   cursor: pointer;
@@ -31,15 +30,13 @@
   justify-content: center;
   margin: 0px;
   padding: 0px 10px;
-  width: 70%;
-  padding-top: 12%;
-  padding-bottom: 12%;
+  width: 100%;
 }
 
 .activity_element h3 {
-  margin: 5px 0 2px 0;
-  color: #03396c;
-  font-size: 120%;
+  margin: 4% 0 2px 0;
+  color: #4c4e61;
+  font-size: 140%;
 }
 
 .activity_element p {
@@ -48,6 +45,22 @@
   font-size: 80%;
   height: 100%;
 
+}
+
+.rate-div{
+   margin-top: 60px;
+}
+
+.rate-btn, .rate-span{
+  color: #0e63be;
+}
+.rate-span{
+  vertical-align: middle;
+  padding-left: 5px;
+}
+
+.rate-btn{
+  vertical-align: middle;
 }
 
 .activity_actions {
@@ -107,8 +120,9 @@ img.activity_element {
 }
 
 #user_text {
-  color: #667f93;
-  font-size: 70%;
+  color: #a3a5ae;;
+  font-size: 90%;
+  font-family: inherit;
   margin: 0px 0px 10px 0px;
 }
 
