@@ -44,7 +44,10 @@ const QueuePage = () => {
         {queue?.activities && <Activities activities={queue.activities} />}
         {isEmpty && <p>Queue is empty</p>}
       </div>
-      {!isEmpty && <FabButton icon="play" handleClick={navigateToPlay} />}
+      <div className="fab">
+
+        {!isEmpty && <FabButton icon="play" handleClick={navigateToPlay} />}
+      </div>
     </>
   );
 };

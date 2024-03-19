@@ -2,16 +2,13 @@
   display: flex;
   flex-direction: column;
   background-color: white;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  min-width: 16rem;
+  margin: 1rem;
   padding: 1rem;
+  width: 26rem;
   background: linear-gradient(343deg, rgba(245, 245, 245, 1) 0%, rgba(255, 255, 255, 1) 39%);
   border-radius: 10px;
-
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
-
 
 .title {
   margin-bottom: 0.5rem;
@@ -23,8 +20,19 @@
   font-size: small;
 }
 
+.text-body {
+  color: black;
+  font-size: medium;
+}
+
 .report-btn {
   border-radius: 15px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .report-btn:hover {
@@ -33,9 +41,21 @@
   font-size: 24px;
 }
 
+.red-btn {
+  color: red;
+  border-radius: 15px;
+}
+
+.red-btn:hover {
+  color: #d10a0a;
+  cursor: pointer;
+  font-size: 24px;
+}
+
 .trash-btn {
   border-radius: 15px;
   padding-bottom: 3px;
+  padding-left: 8px;
 }
 
 .trash-btn:hover {

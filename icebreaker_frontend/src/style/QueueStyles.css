@@ -1,70 +1,81 @@
 .queue {
-    background: rgb(100, 151, 177);
-    background: linear-gradient(343deg, rgba(100, 151, 177, 1) 0%, rgba(179, 205, 224, 1) 39%);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: vertical;
-    align-items: center;
-    justify-content: center;
-    margin: 5px;
-    padding: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-    transition: all 0.1s ease;
-    height: 8
-    vh;
-    width: 100%;
+  background: rgb(100, 151, 177);
+  background: linear-gradient(343deg, rgba(100, 151, 177, 1) 0%, rgba(179, 205, 224, 1) 39%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: vertical;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  transition: all 0.1s ease;
+  height: 8 vh;
+  width: 100%;
 }
 
 .queue:hover {
-    scale: 1.005;
+  scale: 1.005;
 }
 
 .queue-element {
-    display: flex;
-    flex-direction: horizontal;
-    align-items: center;
-    justify-content: center;
-    margin: 5px;
-    padding: 5px;
-    transition: all 0.1s ease;
-    height: 8vh;
-    width: 100%;
+  display: flex;
+  flex-direction: horizontal;
+  align-items: center;
+  justify-content: left;
+  margin: 5px;
+  margin-left: 2rem;
+  padding: 5px;
+  padding-left: 2rem;
+  transition: all 0.1s ease;
+  height: 8vh;
+  width: 100%;
 }
 
 .queue-div {
-    width: 100%;
-    display: flex;
-    flex-direction: horizontal;
-    align-items:stretch;
-    transition: all 0.1s ease;
+  width: 100%;
+  display: flex;
+  flex-direction: horizontal;
+  align-items: stretch;
+  transition: all 0.1s ease;
 }
 
 
 .play-button {
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-    margin: 0 10px;
-    padding: 0;
-    height: 100%;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 10px;
+  padding: 0;
+  height: 100%;
 }
 
 .play-button:hover {
-    color: #000000;
+  color: #000000;
 }
 
-.play-icon{
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-    padding: 0;
-    height: 60%;
+.play-icon {
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+  height: 50%;
 }
 
 .close-icon {
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-    padding: 0;
-    height: 30px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+  height: 30px;
+}
+
+.heart {
+  color: red;
+}
+
+.fab {
+  position: fixed;
+  left: 90rem;
+  top: 15vh;
 }

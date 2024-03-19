@@ -5,8 +5,26 @@
   --font-family: 'Poppins', sans-serif;
 
 }
-body{
-    background: rgb(200, 224, 244);
-    font-family: var(--font-family);
-    
+
+body {
+  background: rgb(200, 224, 244);
+  font-family: var(--font-family);
+
+}
+
+button {
+  background: #d4121200;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: 'Gudea';
+  font-style: bold;
+
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+button:hover {
+  color: white;
 }

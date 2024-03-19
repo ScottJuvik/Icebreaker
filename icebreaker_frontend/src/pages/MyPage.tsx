@@ -54,7 +54,9 @@ const MyPage = () => {
           </li>
         }
       </div>
-      <FabButton icon="add" handleClick={navigateToCreateQueue} />
+      <div className="fab">
+        <FabButton icon="add" handleClick={navigateToCreateQueue} />
+      </div>
     </>
   );
 };

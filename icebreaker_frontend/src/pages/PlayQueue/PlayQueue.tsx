@@ -54,7 +54,7 @@ const PlayQueue = () => {
     setTimeout(() => {
       toggleShuffle(false);
       clearInterval(interval);
-    }, 3000);
+    }, 2000);
     selectRelativeActivity(1);
   };
 
@@ -65,25 +65,33 @@ const PlayQueue = () => {
     config: { friction: 20, tension: 50 },
   });
 
-  const spinProps = useSpring(
-    {
-      from: { transform: `translateX(${direction === 'left' ? '-100%' : '100%'})` },
-      to: { transform: 'translateX(0%)' },
-      reset: true,
-      config: { friction: 10, tension: 40, mass: 12 },
+  const spinProps = useSpring({
+    from: { transform: 'translateX(200%)' },
+    to: { transform: 'translateX(-200%)' },
+    reset: true,
+    config: { friction: 0, tension: 50, mass: 25 },
+  });
 
-    }
-  )
+  const animatedDivs = [];
+  for (let i = 0; i < 10; i++) {
+    animatedDivs.push(
+      <animated.div style={shuffle ? spinProps : slideProps}>
+        {nextActivity && (
+          <PlayActivityCard selected={false} activity={queue[Math.floor(Math.random() * queue.length)
+          ]} />
+        )}
+
+      </animated.div>
+
+    );
+
+  }
   return (
     <>
       <Navbar />
       <div className="play-container">
         <div className="activity-bar">
-          <animated.div style={shuffle ? spinProps : slideProps}>
-            {nextActivity && (
-              <PlayActivityCard selected={false} activity={nextActivity} />
-            )}
-          </animated.div>
+          {animatedDivs}
           <animated.div style={shuffle ? spinProps : slideProps}>
             {prevActivity && (
               <PlayActivityCard selected={false} activity={prevActivity} />
@@ -110,11 +118,7 @@ const PlayQueue = () => {
               <PlayActivityCard selected={false} activity={nextActivity} />
             )}
           </animated.div>
-          <animated.div style={shuffle ? spinProps : slideProps}>
-            {nextActivity && (
-              <PlayActivityCard selected={false} activity={nextActivity} />
-            )}
-          </animated.div>
+          {animatedDivs}
         </div>
         <button className="shuffle-btn" onClick={spinTheWheel}>
           <IconButton aria-label="shuffle">

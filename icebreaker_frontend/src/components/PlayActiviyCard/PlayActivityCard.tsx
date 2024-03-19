@@ -17,7 +17,7 @@ function PlayActivityCard({ activity, selected }: PlayActivityCardProps) {
   };
 
   return (
-    <div className={selected ? "activity" : "unselected-activity"}>
+    <div className={selected ? "play-activity" : "unselected-activity"}>
       <div className="activity_element" onClick={handleButtonClick}>
         <h3>{activity.title}</h3>
         <p id="user_text">Opprettet av: {activity.creator.name}</p>

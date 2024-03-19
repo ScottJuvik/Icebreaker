@@ -1,20 +1,22 @@
-.activity {
-  background: rgb(100, 151, 177);
-  background: linear-gradient(343deg, rgba(100, 151, 177, 1) 0%, rgba(179, 205, 224, 1) 39%);
-  border-radius: 10px;
+.play-activity {
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
   display: flex;
   flex-direction: vertical;
   align-items: center;
   justify-content: center;
-  margin: 5px;
+  margin: 20px;
   padding: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.1s ease;
-  height: 20vh;
+  height: 25vh;
   cursor: pointer;
   width: 45vh;
 }
 
+.play-activity:hover {
+  transform: scale(1.03);
+}
 
 .unselected-activity {
   opacity: 0.5;
@@ -31,7 +33,7 @@
   padding: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
   transition: all 0.1s ease;
-  height: 20vh;
+  height: 25vh;
   cursor: pointer;
   width: 45vh;
 }

@@ -44,7 +44,11 @@ const ActivityView = () => {
           ))}
         </div>
       </div>
-      <FabButton handleClick={handleReviewButton} icon="review" />
+      <div className="fab">
+
+        <FabButton icon="review" handleClick={handleReviewButton} />
+      </div>
+
     </>
   );
 };

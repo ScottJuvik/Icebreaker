@@ -3,6 +3,7 @@ import FabButton from "../FabButton/FabButton";
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded';
 import { IconButton } from "@mui/material";
+import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';
 
 const Timer = () => {
   const {
@@ -22,6 +23,11 @@ const Timer = () => {
     (isRunning ? pause() : start());
   }
 
+  const handleResetButton = () => {
+    reset();
+    pause();
+  }
+
   return (
     <div style={{ textAlign: 'center' }}>
       <div style={{ fontSize: '2rem' }}>
@@ -33,8 +39,14 @@ const Timer = () => {
         </IconButton>
 
       </button>
-      <button className="reset-btn" onClick={() => { reset() }}>reset</button>
-    </div>
+      <button className="reset-btn" onClick={handleResetButton}>
+        <IconButton aria-label="play">
+          <RestartAltOutlinedIcon />
+        </IconButton>
+
+
+      </button>
+    </div >
 
   );
 }
