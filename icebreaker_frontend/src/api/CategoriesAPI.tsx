@@ -22,9 +22,7 @@ const getCategory = async (id: string): Promise<CategoryData> => {
     const docRef = doc(db, "categories", id);
     const docSnap = await getDoc(docRef);
     return dataToCategory(docSnap);
-  } catch (e) {
-    console.error("Error getting category: ", e);
-  }
+  } catch (e) {}
   return {
     id: id,
     name: "",

@@ -5,6 +5,12 @@ import "./ExpandedActivity.css";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { getFavorite, updateFavorite } from "../../api/FavoriteAPI";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+
 import {
   LinkedinShareButton,
   FacebookShareButton,
@@ -15,15 +21,20 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import { useParams } from "react-router-dom";
-import { getLoggedIn } from "../../api/LoggedInAPI";
-import RatingStjerner from "../Rating/Rating";
-import Rating from "../Rating/Rating";
+import { getLoggedIn, getLoggedInId } from "../../api/LoggedInAPI";
 import RatingField from "../Rating/RatingField";
+import AddIcon from "@mui/icons-material/Add";
+import PopupMenu, { PopupMenuItem } from "../Menu/PopupMenu";
+import { QueueData } from "../../types/DatabaseTypes";
+import { addToQueue, getQueue, getQueueDatas } from "../../api/QueuesAPI";
+import { MenuItemProps } from "@mui/base";
+import Rating from "../Rating/Rating";
 
 function ExpandedActivity(params: Activity) {
   const { activityId } = useParams();
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [isFavorite, setFavorite] = useState<boolean>(false);
+  const [queues, setQueues] = useState<PopupMenuItem[]>([]);
 
   const navigate = useNavigate();
 
@@ -31,6 +42,16 @@ function ExpandedActivity(params: Activity) {
     setLoggedIn(getLoggedIn());
     getFavorite(params.id).then((value) => {
       setFavorite(value);
+    });
+    getQueueDatas(getLoggedInId()).then((queues) => {
+      setQueues(
+        queues.map((queue) => ({
+          text: queue.title,
+          onClick: () => {
+            addToQueue(queue.id, params.id);
+          },
+        }))
+      );
     });
   }, []);
 
@@ -44,6 +65,7 @@ function ExpandedActivity(params: Activity) {
       <div className="expanded-activity">
         {isLoggedIn && (
           <div className="activity-actions">
+            {queues.length > 0 && <PopupMenu menuItems={queues} />}
             <FlagOutlinedIcon className="report-btn" />
           </div>
         )}

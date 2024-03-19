@@ -11,6 +11,7 @@ import "./ActivityView.css";
 import FabButton from "../../components/FabButton/FabButton";
 import { getReviews } from "../../api/ReviewAPI";
 import { getActivity } from "../../api/ActivitiesAPI";
+import PopupMenu from "../../components/Menu/PopupMenu";
 
 const ActivityView = () => {
   const { activityId } = useParams();

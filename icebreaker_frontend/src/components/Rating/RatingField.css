@@ -18,8 +18,15 @@
     /* You can remove this if not needed */
     padding: 0;
 }
-.rating-star {
-    width: 22px;
-    height:22px;
+.star {
+    width:60px;
+    height: 60px;
     transition: 0.2s;
+}
+
+.star:hover {
+    transform: scale(1.1);
+    /* Increase the size of the star */
+    cursor: pointer;
+    /* Change the cursor to a pointer */
 }

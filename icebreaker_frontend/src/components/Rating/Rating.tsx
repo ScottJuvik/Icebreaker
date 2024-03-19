@@ -1,6 +1,7 @@
 import { useState, ReactNode } from "react";
 import StarIcon from "../icons/SmallStarIcon";
 import "./Rating.css";
+import RatingField from "./RatingField";
 
 interface RatingProps {
   rating: number;
@@ -8,16 +9,15 @@ interface RatingProps {
 }
 
 const Rating = ({ rating, maxRating }: RatingProps) => {
-  const getStarType = (index: number) => {
-    const isFilled = index <= rating;
-    return <StarIcon key={index} filled={isFilled} />;
-  };
-
+  //<RatingField maxRating={maxRating} />
+  //do some rounding
+  const roundedRating = Math.round(rating * 10) / 10;
   return (
     <div className="rating-container">
-      {Array.from({ length: maxRating }, (_, i) => i + 1).map((index) =>
-        getStarType(index)
-      )}
+      <StarIcon className="rating-star" filled={true} />
+      <label className="rating-label">
+        {roundedRating} / {maxRating}
+      </label>
     </div>
   );
 };

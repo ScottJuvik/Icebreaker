@@ -5,6 +5,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useState } from "react";
@@ -78,11 +79,9 @@ const dataToQueueData = (doc: any): QueueData => {
   const data: QueueData = {
     ...(doc.data() as QueueData),
     id: doc.id,
-    title: doc.data().title,
-    activityIds: (doc.data().activityIds || []).map(
-      (activity: any) => activity.id
-    ),
-    dateCreated: doc.data().dateCreated,
+    title: doc.data().title || "",
+    activityIds: (doc.data().activityIds as string[]) || [],
+    dateCreated: doc.data().dateCreated || Timestamp.now(),
   };
   return data;
 };
@@ -111,10 +110,25 @@ const addQueue = async (queue: QueueData): Promise<string> => {
   }
 };
 
+const addToQueue = async (queueId: string, activityId: string) => {
+  console.log("Adding to queue: ", queueId, activityId);
+  if (queueId === "" || activityId === "") {
+    console.error("Error adding to queue: queueId or activityId is empty");
+    return;
+  }
+  try {
+    const queue = await getQueueData(queueId);
+    queue.activityIds.push(activityId);
+    const docRef = doc(db, "queues", queueId);
+    await setDoc(docRef, queue);
+  } catch (error) {}
+};
+
 export {
   getQueueDatas,
   getQueueData,
   addQueue,
   getFavoriteQueueData,
   getQueue,
+  addToQueue,
 };
