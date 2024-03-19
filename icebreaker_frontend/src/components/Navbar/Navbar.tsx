@@ -40,7 +40,6 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
     signOut(auth)
       .then(() => {
         sessionStorage.setItem("user_id", "");
-        console.log("yahoooo");
       })
       .catch((error) => {
         console.log(error);

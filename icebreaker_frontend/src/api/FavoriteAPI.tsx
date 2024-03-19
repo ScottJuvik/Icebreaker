@@ -4,7 +4,6 @@ import { db } from "../firebase/firebaseConfig";
 
 const getFavorite = async (activityId: string): Promise<boolean> => {
   const userId = sessionStorage.getItem("user_id");
-  console.log("ka i faen");
   if (!userId) return false;
 
   const userData = await getUserData(userId);
