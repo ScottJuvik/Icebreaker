@@ -78,8 +78,8 @@ img.activity_element {
   appearance: none;
 
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.1111 3C19.6333 3 22 6.3525 22 9.48C22 15.8138 12.1778 21 12 21C11.8222 21 2 15.8138 2 9.48C2 6.3525 4.36667 3 7.88889 3C9.91111 3 11.2333 4.02375 12 4.92375C12.7667 4.02375 14.0889 3 16.1111 3Z' fill='red' stroke='none' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    /* Set heart SVG as background */
-   /* Set star SVG as background */
+  /* Set heart SVG as background */
+  /* Set star SVG as background */
   background-size: contain;
   border: none;
   /* Remove default border */
@@ -89,15 +89,15 @@ img.activity_element {
 }
 
 .activity:hover {
-    transform: scale(1.03);
+  transform: scale(1.03);
 }
 
 .activity:mousedown {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .activity_checkbox:checked {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.1111 3C19.6333 3 22 6.3525 22 9.48C22 15.8138 12.1778 21 12 21C11.8222 21 2 15.8138 2 9.48C2 6.3525 4.36667 3 7.88889 3C9.91111 3 11.2333 4.02375 12 4.92375C12.7667 4.02375 14.0889 3 16.1111 3Z' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.1111 3C19.6333 3 22 6.3525 22 9.48C22 15.8138 12.1778 21 12 21C11.8222 21 2 15.8138 2 9.48C2 6.3525 4.36667 3 7.88889 3C9.91111 3 11.2333 4.02375 12 4.92375C12.7667 4.02375 14.0889 3 16.1111 3Z' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E");
 }
 
 #rating_text {
@@ -144,3 +144,4 @@ img.activity_element {
 .small-star-icon {
   width: 20px;
   height: 20px;
+}

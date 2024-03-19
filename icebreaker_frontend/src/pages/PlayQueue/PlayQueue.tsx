@@ -1,62 +1,130 @@
+
 import "./PlayQueue.css";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import { getQueue } from "../../api/QueuesAPI";
-import { getActivitiesWithIds, getActivity } from "../../api/ActivitiesAPI";
 import { useEffect, useState } from "react";
-import { Activity, Queue } from "../../types/Types";
-import ExpandedActivity from "../../components/ExpandedActivity/ExpandedActivity";
-import ActivityCard from "../../components/ActivityCard";
-import Timer from "../../components/Timer/Timer";
-import { useStopwatch } from "react-timer-hook";
-import FabButton from "../../components/FabButton/FabButton";
+import { Activity } from "../../types/Types";
+import PlayActivityCard from "../../components/PlayActiviyCard/PlayActivityCard";
+import { useSpring, animated } from "react-spring";
+import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
+import NavigateBeforeRoundedIcon from '@mui/icons-material/NavigateBeforeRounded';
+import ShuffleOutlinedIcon from '@mui/icons-material/ShuffleOutlined';
+import { IconButton } from "@mui/material";
 
 const PlayQueue = () => {
-  const [running, setPlay] = useState(false);
-  const { queueId } = useParams();
   const [queue, setQueue] = useState<Activity[]>([]);
-  const [activity, setActivity] = useState<Activity>();
+  const [prevActivity, setPrevActivity] = useState<Activity | null>(null);
+  const [activity, setActivity] = useState<Activity | null>(null);
+  const [nextActivity, setNextActivity] = useState<Activity | null>(null);
   const [index, setIndex] = useState<number>(0);
+  const [direction, setDirection] = useState<'left' | 'right' | null>(null);
+  const [spinDirection, setSpinDirection] = useState<'left' | 'right' | null>(null);
+  const [shuffle, toggleShuffle] = useState(false);
+  const { queueId } = useParams();
 
   useEffect(() => {
     getQueue(queueId || "").then((q) => {
-      //TODO:  
       setQueue(q.activities);
-      if (queue.length > 0) {
-        selectActivity(queue[0].id)
-      }
-    }
-    )
-  }, []);
-
-  const selectActivity = (activiyId: string) => {
-    queue?.forEach(a => {
-      if (a.id === activiyId) {
-        setActivity(a);
-      }
+      setActivity(q.activities[0]);
     });
-  }
+  }, [queueId]);
 
-  //Used for selecting an activity based on the current index and an offset.
-  //For example if index is 5 you can do offset -5 to select the first activity in the queue.
+  useEffect(() => {
+    const prevIndex = (index - 1 + queue.length) % queue.length;
+    const nextIndex = (index + 1) % queue.length;
+
+    setPrevActivity(queue[prevIndex]);
+    setActivity(queue[index]);
+    setNextActivity(queue[nextIndex]);
+  }, [index, queue]);
+
   const selectRelativeActivity = (offset: number) => {
-    const a = queue[index + offset]
-    setActivity(a)
-  }
+    let newIndex = (index + offset + queue.length) % queue.length;
+    setIndex(newIndex);
+    setDirection(offset === -1 ? 'left' : 'right');
+  };
 
-  return (<>
-    <Navbar />
-    <div className="play-container">
-      <div className="activity-bar">
-        <div className="prev-btn" onClick={() => selectRelativeActivity(-1)}>{"<"}</div>
-        {activity ? <ActivityCard key={activity.id} {...activity} /> : null}
-        <div className="next-btn" onClick={() => selectRelativeActivity(1)}>{">"}</div>
+  const spinTheWheel = () => {
+    toggleShuffle(true);
+    const interval = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * queue.length);
+      selectRelativeActivity(randomIndex);
+    }, 1000);
+    setTimeout(() => {
+      toggleShuffle(false);
+      clearInterval(interval);
+    }, 3000);
+    selectRelativeActivity(1);
+  };
+
+  const slideProps = useSpring({
+    from: { transform: `translateX(${direction === 'left' ? '-100%' : '100%'})` },
+    to: { transform: 'translateX(0%)' },
+    reset: true,
+    config: { friction: 20, tension: 50 },
+  });
+
+  const spinProps = useSpring(
+    {
+      from: { transform: `translateX(${direction === 'left' ? '-100%' : '100%'})` },
+      to: { transform: 'translateX(0%)' },
+      reset: true,
+      config: { friction: 10, tension: 40, mass: 12 },
+
+    }
+  )
+  return (
+    <>
+      <Navbar />
+      <div className="play-container">
+        <div className="activity-bar">
+          <animated.div style={shuffle ? spinProps : slideProps}>
+            {nextActivity && (
+              <PlayActivityCard selected={false} activity={nextActivity} />
+            )}
+          </animated.div>
+          <animated.div style={shuffle ? spinProps : slideProps}>
+            {prevActivity && (
+              <PlayActivityCard selected={false} activity={prevActivity} />
+            )}
+          </animated.div>
+          <button className="prev-btn" onClick={() => selectRelativeActivity(-1)}>
+            <IconButton aria-label="prev">
+              <NavigateBeforeRoundedIcon />
+            </IconButton>
+
+          </button>
+          <animated.div style={shuffle ? spinProps : slideProps}>
+            {activity && (
+              <PlayActivityCard selected={shuffle ? false : true} activity={activity} />
+            )}
+          </animated.div>
+          <button className="next-btn" onClick={() => selectRelativeActivity(1)}>
+            <IconButton aria-label="next">
+              <NavigateNextRoundedIcon />
+            </IconButton>
+          </button>
+          <animated.div style={shuffle ? spinProps : slideProps}>
+            {nextActivity && (
+              <PlayActivityCard selected={false} activity={nextActivity} />
+            )}
+          </animated.div>
+          <animated.div style={shuffle ? spinProps : slideProps}>
+            {nextActivity && (
+              <PlayActivityCard selected={false} activity={nextActivity} />
+            )}
+          </animated.div>
+        </div>
+        <button className="shuffle-btn" onClick={spinTheWheel}>
+          <IconButton aria-label="shuffle">
+            <ShuffleOutlinedIcon />
+          </IconButton>
+        </button>
       </div>
-      <Timer />
-
-    </div>
-  </>)
-}
-
+    </>
+  );
+};
 
 export default PlayQueue;
+

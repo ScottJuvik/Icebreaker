@@ -2,6 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  align-self: center;
 }
 
 .activity-bar {
@@ -12,10 +13,9 @@
 }
 
 .prev-btn {
-  font-size: xx-large;
-
+  z-index: 1000;
 }
 
 .next-btn {
-  font-size: xx-large;
+  z-index: 1000;
 }

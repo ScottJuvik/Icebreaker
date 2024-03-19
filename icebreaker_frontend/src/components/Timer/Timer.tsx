@@ -24,7 +24,7 @@ const Timer = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <div style={{ fontSize: '100px' }}>
+      <div style={{ fontSize: '2rem' }}>
         <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
       </div>
       <button className="icon-button-wrapper" onClick={handlePlayButton}>
