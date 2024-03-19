@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import useFilteredActivities from "../hooks/useFilterActivities";
 import { getCategories } from "../api/CategoriesAPI";
 import { CategoryData } from "../types/DatabaseTypes";
+import CategorySelect from "../components/CategorySelect/CategorySelect";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,19 +19,14 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [categories, setCategories] = useState<CategoryData[]>([]);
 
   useEffect(() => {
     if (isLoading) {
       getActivities().then((activities) => {
         setActivities(activities);
-        getCategories().then((categories) => {
-          setCategories(categories);
-          setIsLoading(false);
-        });
+        setIsLoading(false);
       });
     }
-    console.log("selectedCategory: ", selectedCategory);
   });
 
   const { filteredActivities, toggleSortOrder, clearSortByRating } =
@@ -47,10 +43,13 @@ const Home = () => {
     }
   };
 
-  const handleCategoryChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSelectedCategory(event.target.value);
+  //(onChange: (category: CategoryData) => void) => {
+  const handleCategoryChange = (category: CategoryData | null) => {
+    if (!category) {
+      setSelectedCategory(null);
+      return;
+    }
+    setSelectedCategory(category.id);
   };
 
   const createActivity = () => {
@@ -64,14 +63,7 @@ const Home = () => {
         <h2>Activities</h2>
         <SearchBar onSearch={onSearch} />
         <button onClick={toggleSortOrder}>Toggle Sort by Rating</button>
-        <select value={selectedCategory || ""} onChange={handleCategoryChange}>
-          <option value="">Select a category.</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.name}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <CategorySelect onChange={handleCategoryChange} />
         <Activities activities={filteredActivities} />
       </div>
       <FabButton handleClick={createActivity} icon="add" />

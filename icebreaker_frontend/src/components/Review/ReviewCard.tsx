@@ -8,6 +8,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { getLoggedInType } from "../../api/LoggedInAPI";
 import { deleteReview } from "../../api/ReviewAPI";
+import Rating from "../Rating/Rating";
 
 const ReviewCard = (params: Review) => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -37,6 +38,7 @@ const ReviewCard = (params: Review) => {
             />
           )}
           <FlagOutlinedIcon className="report-btn" />
+          <Rating rating={params.rating} maxRating={5} />
         </div>
       </div>
     </>
