@@ -13,12 +13,17 @@ import Rating from "../Rating/Rating";
 const ReviewCard = (params: Review) => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [flag, toggleFlag] = useState<boolean>(false);
 
   useEffect(() => {
     getLoggedInType().then((value) => {
       setIsAdmin(value === "admin");
     });
   }, [navigate]);
+
+  const handleReport = () => {
+    flag ? toggleFlag(false) : toggleFlag(true);
+  }
 
   return (
     <>
@@ -27,17 +32,20 @@ const ReviewCard = (params: Review) => {
         <p className="author-text">Bruker: {params.creator.name}</p>
         <p className="text-body">{params.description}</p>
         <div>
-          {isAdmin && (
-            <FaTrashAlt
-              className="trash-btn"
-              onClick={() => {
-                deleteReview(params.id).then(() => {
-                  navigate(0);
-                });
-              }}
-            />
-          )}
-          <FlagOutlinedIcon className="report-btn" />
+          <div className="buttons">
+            {isAdmin && (
+              <FaTrashAlt
+                className="trash-btn"
+                onClick={() => {
+                  deleteReview(params.id).then(() => {
+                    navigate(0);
+                  });
+                }}
+              />
+            )}
+            <FlagOutlinedIcon className={flag ? "red-btn" : "report-btn"} onClick={handleReport} />
+          </div>
+
           <Rating rating={params.rating} maxRating={5} />
         </div>
       </div>

@@ -19,8 +19,6 @@ interface Props {
 // The component takes an array of fields and a function as arguments.
 // Each field is a standard html form-tag, the specific tag is specified in the category attribute.
 const FormComponent: React.FC<Props> = ({ fields, onSubmit }) => {
-  //TODO: Add support for more input categories, like numerical values,
-  // and validation.
   const initialFormData: Record<string, string> = {};
   fields.forEach((field) => {
     initialFormData[field.name] = "";

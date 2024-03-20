@@ -1,0 +1,8 @@
+.timer-container {
+  background: gray;
+  border-radius: 15%;
+}
+
+.reset-btn {
+  color: black;
+}
