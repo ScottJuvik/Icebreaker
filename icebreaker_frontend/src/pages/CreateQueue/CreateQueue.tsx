@@ -12,7 +12,6 @@ import { addQueue } from "../../api/QueuesAPI";
 import { addQueueId } from "../../api/UserAPI";
 
 const CreateQueue = () => {
-  //TODO: Add support for numerical rating.
   const navigate = useNavigate();
   async function postQueue(formData: Record<string, string>) {
     if (!getLoggedIn()) throw new Error("Login required");

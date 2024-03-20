@@ -43,7 +43,6 @@ function ActivityCard(params: Activity) {
   const handleReviewButton = () => {
     navigate("/create_review/" + params.id);
   };
-  console.log(params.category.color);
   return (
     <div
       className={styleClass}

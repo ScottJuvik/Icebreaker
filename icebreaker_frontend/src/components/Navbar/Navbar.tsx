@@ -40,7 +40,6 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
     signOut(auth)
       .then(() => {
         sessionStorage.setItem("user_id", "");
-        console.log("yahoooo");
       })
       .catch((error) => {
         console.log(error);
@@ -61,16 +60,16 @@ const Navbar = ({ atLoginPage = false, atMyPage = false }: NavbarProps) => {
         </Link>
         <div className="navbar_container">
           {!atLoginPage && isLoggedIn && !atMyPage && (
-            <button id="navbar-name" onClick={navigateToMyPage}>
+            <button className="nav-btn" id="navbar-name" onClick={navigateToMyPage}>
               {name}
             </button>
           )}
           {!atLoginPage && isLoggedIn && atMyPage && (
-            <button onClick={handleLogOut}>LOGG UT</button>
+            <button className="nav-btn" onClick={handleLogOut}>LOGG UT</button>
           )}
           {!atLoginPage && !isLoggedIn && (
             <Link to={"/login"}>
-              <button>LOGG IN</button>
+              <button className="nav-btn">LOGG IN</button>
             </Link>
           )}
           {isLoggedIn && isAdmin && <p>ADMIN</p>}

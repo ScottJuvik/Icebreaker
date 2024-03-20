@@ -1,0 +1,118 @@
+.play-activity {
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: vertical;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  padding: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease;
+  height: 25vh;
+  cursor: pointer;
+  width: 45vh;
+}
+
+.play-activity:hover {
+  transform: scale(1.03);
+}
+
+.unselected-activity {
+  opacity: 0.5;
+  /* Adjust the opacity value as needed */
+  background: rgba(100, 151, 177, 0.5);
+  /* Adjust the background color and opacity as needed */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: vertical;
+  /* Change 'vertical' to 'column' */
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  transition: all 0.1s ease;
+  height: 25vh;
+  cursor: pointer;
+  width: 45vh;
+}
+
+.activity_element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px 10px;
+  width: 70%;
+  padding-top: 12%;
+  padding-bottom: 12%;
+}
+
+.activity_element h3 {
+  margin: 5px 0 2px 0;
+  color: #03396c;
+  font-size: 120%;
+}
+
+.activity_element p {
+  margin: 0px 20px 10px 20px;
+  color: #344352;
+  font-size: 80%;
+  height: 100%;
+
+}
+
+.activity_actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px 10px;
+  width: 30%;
+}
+
+img.activity_element {
+  height: 92%;
+  width: auto;
+  /* Maintains aspect ratio */
+  border-radius: 15px;
+}
+
+.activity:hover {
+  transform: scale(1.03);
+}
+
+.activity:hover {
+  transform: scale(1.03);
+}
+
+.activity:mousedown {
+  transform: scale(1.1);
+}
+
+#user_text {
+  color: #667f93;
+  font-size: 70%;
+  margin: 0px 0px 10px 0px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+    font-size: 20px;
+  }
+
+  to {
+    transform: rotate(360deg);
+    font-size: 50px;
+  }
+}
+
+
+
+.onclickButtons {
+  flex-direction: row;
+}
